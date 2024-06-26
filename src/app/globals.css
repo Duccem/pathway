@@ -76,3 +76,15 @@ html, body, :root {
     @apply bg-background text-foreground;
   }
 }
+
+.cl-formButtonPrimary {
+  background-color: #8167EC;
+  box-shadow: none !important;
+  border: 1px solid #8167EC !important;
+}
+
+.cl-formButtonPrimary:hover {
+  background-color: #fff;
+  color: #8167EC;
+  border: 1px solid #8167EC;
+}
