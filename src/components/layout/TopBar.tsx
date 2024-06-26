@@ -2,10 +2,10 @@
 import Link from "next/link";
 import { Search } from "lucide-react";
 import { UserButton, useAuth } from "@clerk/nextjs";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 
 const TobBar = () => {
-  const { userId } = useAuth();
+  const { isSignedIn } = useAuth();
   const topRoutes = [
     { label: 'Instructor', path: '/instructor/courses' },
     { label: 'Learning', path: '/learning'}
@@ -29,7 +29,7 @@ const TobBar = () => {
             ))
           }
         </div>
-        { userId ? <UserButton afterSignOutUrl="/sign-in"/> : <Link href='sign-in' className=""><Button>Sign In</Button></Link>}
+        { isSignedIn ? <UserButton afterSignOutUrl="/sign-in" /> : <Link href='sign-in' className=""><Button>Sign In</Button></Link>}
         
       </div>
     </div>

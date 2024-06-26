@@ -88,3 +88,8 @@ html, body, :root {
   color: #8167EC;
   border: 1px solid #8167EC;
 }
+
+.cl-avatarBox {
+  width: 40px;
+  height: 40px;
+}
