@@ -99,7 +99,7 @@ model MuxData {
 
 model CourseSectionResource {
   id        String        @id @default(uuid())
-  title     String
+  name     String
   fileUrl   String
   sectionId String
   section   CourseSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)

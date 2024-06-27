@@ -188,7 +188,7 @@ const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => 
               <FormItem className="flex flex-col">
                 <FormLabel>Course Banner</FormLabel>
                 <FormControl>
-                  <FilePicker value={field.value || ''} onChange={(url) => field.onChange(url)} endpoint="courseBanner" />
+                  <FilePicker page="edit-course" value={field.value || ''} onChange={(url) => field.onChange(url)} endpoint="courseBanner" />
                 </FormControl>
                 <FormMessage />
               </FormItem>

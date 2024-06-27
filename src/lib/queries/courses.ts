@@ -29,3 +29,14 @@ export const getCourse = async (
   });
   return course;
 };
+
+export const getCourseSection = async (sectionId: string, courseId: string) => {
+  const sections = await db.courseSection.findUnique({
+    where: { id: sectionId, courseId },
+    include: {
+      resources: true,
+      muxData: true,
+    },
+  });
+  return sections;
+};
