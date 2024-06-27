@@ -10,7 +10,7 @@ const Sidebar = () => {
     { icon: <BarChart4/>, label: 'Performance', path: '/instructor/performance' }
   ]
   return (
-    <div className="max-sm:hidden flex flex-col w-64 border-r shadow-md px-3 my-4 gap-4 text-sm font-medium h-full">
+    <div className="max-sm:hidden flex flex-col w-64 border-r px-3 py-3 my-4 gap-4 text-sm font-medium h-full">
       {
         sidebarRoutes.map((route)=>(
           <Link href={route.path} key={route.path}

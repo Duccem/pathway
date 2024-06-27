@@ -1,15 +1,8 @@
 import CreateCourseForm from "@/components/course/CreateCourseForm";
-import { db } from "@/lib/db";
+import { getCategories } from "@/lib/queries/categories";
 
 const CreateCoursePage = async () => {
-  const categories = await db.category.findMany({
-    orderBy: {
-      name: 'asc'
-    },
-    include:{
-      subcategories: true
-    }
-  });
+  const categories = await getCategories();
   return (
     <div>
       <CreateCourseForm categories={categories.map((category) => ({ 
