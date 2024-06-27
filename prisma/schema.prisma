@@ -32,6 +32,8 @@ model Course {
   levelId String?
   level   Level?  @relation(fields: [levelId], references: [id])
 
+  sections CourseSection[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
@@ -61,4 +63,58 @@ model Level {
   id      String   @id @default(uuid())
   name    String   @unique
   courses Course[]
+}
+
+model CourseSection {
+  id          String  @id @default(uuid())
+  title       String
+  description String? @db.Text
+  videoUrl    String? @db.Text
+  position    Int
+  isPublished Boolean @default(false)
+  isFree      Boolean @default(false)
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
+
+  muxData   MuxData?
+  resources CourseSectionResource[]
+  progress  CourseSectionProgress[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@index([courseId])
+}
+
+model MuxData {
+  id         String        @id @default(uuid())
+  assetId    String
+  playbackId String
+  sectionId  String        @unique
+  section    CourseSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+
+  @@index([sectionId])
+}
+
+model CourseSectionResource {
+  id        String        @id @default(uuid())
+  title     String
+  fileUrl   String
+  sectionId String
+  section   CourseSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @default(now()) @updatedAt
+}
+
+model CourseSectionProgress {
+  id          String        @id @default(uuid())
+  studentId   String        @unique
+  sectionId   String
+  section     CourseSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
+  isCompleted Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @default(now()) @updatedAt
+
+  @@index([sectionId])
 }

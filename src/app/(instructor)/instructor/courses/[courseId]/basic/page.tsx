@@ -1,15 +1,10 @@
 import EditCourseForm from '@/components/course/EditCourseForm';
-import { db } from '@/lib/db';
 import { getCategories } from '@/lib/queries/categories';
+import { getCourse } from '@/lib/queries/courses';
 import { getLevels } from '@/lib/queries/levels';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 import React from 'react';
-
-const getCourse = async (courseId: string, instructorId: string) => {
-  const course = await db.course.findUnique({ where: { id: courseId, instructorId } });
-  return course;
-}
 
 interface CourseBasicPageParams {
   params:{

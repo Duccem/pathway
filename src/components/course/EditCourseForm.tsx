@@ -18,8 +18,9 @@ import { RichEditor } from "../ui/rich-editor";
 import FilePicker from "../ui/file-picker";
 import Link from "next/link";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { Trash } from "lucide-react";
 
 const editCourseFormSchema = z.object({
   title: z.string().min(2, { message: 'Title is required and minimum 2 characters' }),
@@ -48,6 +49,7 @@ interface EditCourseFormProps {
 }
 const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => {
   const router = useRouter();
+  const pathName = usePathname();
   const form = useForm<z.infer<typeof editCourseFormSchema>>({
     resolver: zodResolver(editCourseFormSchema),
     defaultValues: {
@@ -73,9 +75,30 @@ const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => 
     }
   }
 
+  const routes = [
+    { label: 'Basic Information', path: `/instructor/courses/${course.id}/basic` },
+    { label: 'Curriculum', path: `/instructor/courses/${course.id}/sections` },
+  ]
+
   return (
     <div className="p-10">
-      <h1 className="text-xl font-bold">{course.title} - Details</h1>
+      <div className="flex flex-col gap-2 sm:flex-row sm:justify-between mb-7">
+        <div className="flex gap-5">
+          {
+            routes.map((route) => (
+              <Link href={route.path} key={route.path} className="flex gap-4">
+                <Button variant={pathName === route.path ? 'default' : 'outline'}>{route.label}</Button>
+              </Link>
+            ))
+          }
+        </div>
+        <div className="flex gap-4 items-start">
+          <Button variant='outline'>Publish</Button>
+          <Button>
+            <Trash className="h-4 w-4"/>
+          </Button>
+        </div>
+      </div>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 mt-10">
           <FormField
