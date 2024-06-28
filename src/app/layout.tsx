@@ -9,6 +9,11 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "Ducen Academy",
   description: "Empowering minds, shaping future",
+  icons: {
+    icon: {
+      url: "/favicon.ico",
+    },
+  }
 };
 
 export default function RootLayout({
