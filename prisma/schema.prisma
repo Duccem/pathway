@@ -34,6 +34,8 @@ model Course {
 
   sections CourseSection[]
 
+  purchases CoursePurchase[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
 
@@ -99,7 +101,7 @@ model MuxData {
 
 model CourseSectionResource {
   id        String        @id @default(uuid())
-  name     String
+  name      String
   fileUrl   String
   sectionId String
   section   CourseSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
@@ -117,4 +119,23 @@ model CourseSectionProgress {
   updatedAt   DateTime      @default(now()) @updatedAt
 
   @@index([sectionId])
+}
+
+model CoursePurchase {
+  id         String   @id @default(uuid())
+  customerId String   @unique
+  courseId   String   @unique
+  course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
+
+  @@index([courseId])
+}
+
+model StripeCustomer {
+  id               String   @id @default(uuid())
+  stripeCustomerId String   @unique
+  customerId       String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now()) @updatedAt
 }
