@@ -1,4 +1,6 @@
+import { CourseTableColumns } from "@/components/course/CourseTableColum";
 import { Button } from "@/components/ui/button";
+import { DataTable } from "@/components/ui/data-table";
 import { getCourses } from "@/lib/queries/courses";
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
@@ -12,12 +14,8 @@ const CoursesPage = async () => {
   return (
     <div className="px-6 py-4">
       <Link href='/instructor/create-course'><Button>Create new course</Button></Link>
-      <div className="mt-10 flex flex-col gap-4">
-        {
-          courses.map(course => (
-            <Link href={`/instructor/courses/${course.id}/basic`} key={course.id}>{course.title}</Link>
-          ))
-        }
+      <div className="mt-5">
+        <DataTable columns={CourseTableColumns} data={courses}/>
       </div>
     </div>
   );
