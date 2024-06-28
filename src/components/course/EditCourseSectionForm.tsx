@@ -16,6 +16,7 @@ import CourseSectionResourceForm from "./CourseSectionResourceForm";
 import toast from "react-hot-toast";
 import axios from "axios";
 import MuxPlayer from "@mux/mux-player-react";
+import DeleteCourse from "./DeleteCourse";
 
 const editCourseSectionForm = z.object({
   title: z.string().min(2, { message: 'Title is required and minimum 2 characters' }),
@@ -66,9 +67,7 @@ const EditCourseSectionForm = ({ section, courseId, isComplete }: EditCourseSect
         </Link>
         <div className="flex gap-4 items-start">
           <Button variant='outline'>Publish</Button>
-          <Button>
-            <Trash className="h-4 w-4"/>
-          </Button>
+          <DeleteCourse  courseId={courseId} sectionId={section.id} item={'section'}/>
         </div>
       </div>
       <h1 className="text-xl font-bold">Section Details</h1>

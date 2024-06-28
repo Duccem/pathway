@@ -62,3 +62,64 @@ export const PUT = async (
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 };
+
+export const DELETE = async (
+  req: NextRequest,
+  {
+    params: { courseId, sectionId },
+  }: { params: { courseId: string; sectionId: string } }
+) => {
+  try {
+    console.log('trying to delete section');
+    const { userId } = auth();
+    if (!userId) {
+      return new NextResponse('Unauthorized', { status: 401 });
+    }
+
+    const course = await db.course.findUnique({
+      where: { id: courseId, instructorId: userId },
+    });
+
+    if (!course) {
+      return new NextResponse('Not Found', { status: 404 });
+    }
+
+    const section = await db.courseSection.findUnique({
+      where: { id: sectionId, courseId },
+    });
+
+    if (!section) {
+      return new NextResponse('Not Found', { status: 404 });
+    }
+
+    if (section.videoUrl) {
+      const existingMuxData = await db.muxData.findFirst({
+        where: {
+          sectionId,
+        },
+      });
+      if (existingMuxData) {
+        await video.assets.delete(existingMuxData.assetId);
+        await db.muxData.delete({ where: { id: existingMuxData.id } });
+      }
+    }
+    console.log('section about to be deleted');
+    await db.courseSection.delete({ where: { id: sectionId, courseId } });
+    console.log('section deleted');
+    const publishedSectionsInCourse = await db.courseSection.findMany({
+      where: { courseId, isPublished: true },
+    });
+
+    if (!publishedSectionsInCourse.length) {
+      await db.course.update({
+        where: { id: courseId },
+        data: { isPublished: false },
+      });
+    }
+
+    return new NextResponse('Section deleted successfully', { status: 200 });
+  } catch (error) {
+    console.log('[DELETE SECTION ERROR]', error);
+    return new NextResponse('Internal Server Error', { status: 500 });
+  }
+};

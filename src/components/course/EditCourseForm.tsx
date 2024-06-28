@@ -21,6 +21,7 @@ import axios from "axios";
 import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Trash } from "lucide-react";
+import DeleteCourse from "./DeleteCourse";
 
 const editCourseFormSchema = z.object({
   title: z.string().min(2, { message: 'Title is required and minimum 2 characters' }),
@@ -94,9 +95,7 @@ const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => 
         </div>
         <div className="flex gap-4 items-start">
           <Button variant='outline'>Publish</Button>
-          <Button>
-            <Trash className="h-4 w-4"/>
-          </Button>
+          <DeleteCourse item="course" courseId={course.id}/>
         </div>
       </div>
       <Form {...form}>
