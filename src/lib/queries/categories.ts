@@ -6,7 +6,11 @@ export const getCategories = async () => {
       name: 'asc',
     },
     include: {
-      subcategories: true,
+      subcategories: {
+        orderBy: {
+          name: 'asc',
+        },
+      },
     },
   });
   return categories;

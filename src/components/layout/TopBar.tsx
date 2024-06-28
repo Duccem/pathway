@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Search } from "lucide-react";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
+import Searcher from "../shared/Searcher";
 
 const TobBar = () => {
   const { isSignedIn } = useAuth();
@@ -15,12 +16,7 @@ const TobBar = () => {
       <Link href='/'>
         <img src='/images/logo.png' alt="logo" height={100} width={200}/>
       </Link>
-      <div className="max-md:hidden w-[400px] rounded-full flex">
-        <input type="text" className="flex-grow bg-[#dfcbfa] rounded-l-full border-none outline-none text-sm pl-4 py-3" placeholder="Search for courses" />
-        <button className="bg-[#9747FF] rounded-r-full border-none outline-none cursor-pointer px-4 py-3 hover:bg-[#9747FF]/80"> 
-          <Search className="h-4 w-4"/>
-        </button>
-      </div>
+      <Searcher/>
       <div className="flex gap-6 items-center">
         <div className="max-sm:hidden flex gap-6">
           {

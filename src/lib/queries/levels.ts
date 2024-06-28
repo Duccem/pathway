@@ -8,3 +8,12 @@ export const getLevels = async () => {
   });
   return levels;
 };
+
+export const getLevel = async (id: string) => {
+  const level = await db.level.findUnique({
+    where: {
+      id,
+    },
+  });
+  return level;
+};
