@@ -13,10 +13,7 @@ export const getCourses = async (userId: string) => {
   return courses;
 };
 
-export const getCourse = async (
-  courseId: string,
-  instructorId: string
-): Promise<Course | null> => {
+export const getCourse = async (courseId: string, instructorId: string) => {
   const course = await db.course.findUnique({
     where: { id: courseId, instructorId },
     include: {

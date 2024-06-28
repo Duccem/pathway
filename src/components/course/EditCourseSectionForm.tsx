@@ -17,6 +17,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import MuxPlayer from "@mux/mux-player-react";
 import DeleteCourse from "./DeleteCourse";
+import PublishButton from "./PublishButton";
 
 const editCourseSectionForm = z.object({
   title: z.string().min(2, { message: 'Title is required and minimum 2 characters' }),
@@ -57,7 +58,7 @@ const EditCourseSectionForm = ({ section, courseId, isComplete }: EditCourseSect
   const { isValid, isSubmitting } = form.formState
 
   return (
-    <div className="p-10">
+    <div className="py-10">
       <div className="flex flex-col gap-2 sm:flex-row sm:justify-between mb-7">
         <Link href={`/instructor/courses/${courseId}/sections`}>
           <Button className="text-sm font-medium" variant='outline'>
@@ -66,7 +67,7 @@ const EditCourseSectionForm = ({ section, courseId, isComplete }: EditCourseSect
           </Button>
         </Link>
         <div className="flex gap-4 items-start">
-          <Button variant='outline'>Publish</Button>
+          <PublishButton disabled={!isComplete} courseId={courseId} sectionId={section.id} isPublished={section.isPublished} page={'section'}/>
           <DeleteCourse  courseId={courseId} sectionId={section.id} item={'section'}/>
         </div>
       </div>
@@ -82,7 +83,7 @@ const EditCourseSectionForm = ({ section, courseId, isComplete }: EditCourseSect
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>Title <span className="text-red-500">*</span></FormLabel>
                 <FormControl>
                   <Input placeholder="Ex: Introduction to web design" {...field} />
                 </FormControl>
@@ -95,7 +96,7 @@ const EditCourseSectionForm = ({ section, courseId, isComplete }: EditCourseSect
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Description</FormLabel>
+                <FormLabel>Description <span className="text-red-500">*</span></FormLabel>
                 <FormControl>
                   <RichEditor placeholder='What is this course about' {...field}></RichEditor>
                 </FormControl>
@@ -115,7 +116,7 @@ const EditCourseSectionForm = ({ section, courseId, isComplete }: EditCourseSect
             name="videoUrl"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Video</FormLabel>
+                <FormLabel>Video <span className="text-red-500">*</span></FormLabel>
                 <FormControl>
                   <FilePicker page="edit-section" value={field.value || ''} onChange={(url) => field.onChange(url)} endpoint="sectionVideo" />
                 </FormControl>

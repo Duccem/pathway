@@ -1,4 +1,5 @@
 import EditCourseSectionForm from "@/components/course/EditCourseSectionForm";
+import IncompleteBanner from "@/components/course/IncompleteBanner";
 import { getCourse, getCourseSection } from "@/lib/queries/courses";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
@@ -26,8 +27,15 @@ const CourseSectionDetailPage = async ({ params: { courseId, sectionId }  }: Cou
   if(!section) {
     return redirect(`/instructor/courses/${courseId}/sections`);
   }
+  const requiredFields = [section.title, section.description, section.videoUrl];
+  const isComplete = requiredFields.every(Boolean);
+  const requiredFieldsCount = requiredFields.length;
+  const missingFieldsCount = requiredFields.filter(field => !Boolean(field)).length;
   return (
-    <EditCourseSectionForm courseId={courseId} section={section} isComplete={false}/>
+    <div className="px-10">
+      { !section.isPublished ? <IncompleteBanner isCompleted={isComplete} requiredFieldsCount={requiredFieldsCount} missingFieldsCount={missingFieldsCount}/> : null }
+      <EditCourseSectionForm courseId={courseId} section={section} isComplete={isComplete}/>
+    </div>
   );
 }
 

@@ -22,6 +22,7 @@ import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Trash } from "lucide-react";
 import DeleteCourse from "./DeleteCourse";
+import PublishButton from "./PublishButton";
 
 const editCourseFormSchema = z.object({
   title: z.string().min(2, { message: 'Title is required and minimum 2 characters' }),
@@ -47,8 +48,9 @@ interface EditCourseFormProps {
     label: string;
     value: string;
   }[];
+  isComplete: boolean;
 }
-const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => {
+const EditCourseForm = ({ course, categories, levels, isComplete }: EditCourseFormProps) => {
   const router = useRouter();
   const pathName = usePathname();
   const form = useForm<z.infer<typeof editCourseFormSchema>>({
@@ -82,7 +84,7 @@ const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => 
   ]
 
   return (
-    <div className="p-10">
+    <div className="py-10">
       <div className="flex flex-col gap-2 sm:flex-row sm:justify-between mb-7">
         <div className="flex gap-5">
           {
@@ -94,7 +96,7 @@ const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => 
           }
         </div>
         <div className="flex gap-4 items-start">
-          <Button variant='outline'>Publish</Button>
+          <PublishButton disabled={!isComplete} courseId={course.id}  isPublished={course.isPublished} page={'course'}/>
           <DeleteCourse item="course" courseId={course.id}/>
         </div>
       </div>
@@ -105,7 +107,7 @@ const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => 
             name="title"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Title</FormLabel>
+                <FormLabel>Title <span className="text-red-500">*</span></FormLabel>
                 <FormControl>
                   <Input placeholder="Ex: Web development from the beginning" {...field} />
                 </FormControl>
@@ -118,7 +120,7 @@ const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => 
             name="subtitle"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Sub Title</FormLabel>
+                <FormLabel>Sub Title <span className="text-red-500">*</span></FormLabel>
                 <FormControl>
                   <Input placeholder="Ex: Became a full stack with just ONE course" {...field} />
                 </FormControl>
@@ -131,7 +133,7 @@ const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => 
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Description</FormLabel>
+                <FormLabel>Description <span className="text-red-500">*</span></FormLabel>
                 <FormControl>
                   <RichEditor placeholder='What is this course about' {...field}></RichEditor>
                 </FormControl>
@@ -145,7 +147,7 @@ const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => 
               name="categoryId"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Category</FormLabel>
+                  <FormLabel>Category <span className="text-red-500">*</span></FormLabel>
                   <FormControl>
                     <Combobox options={categories} {...field} />
                   </FormControl>
@@ -158,7 +160,7 @@ const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => 
               name="subCategoryId"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Sub Category</FormLabel>
+                  <FormLabel>Sub Category <span className="text-red-500">*</span></FormLabel>
                   <FormControl>
                     <Combobox options={categories.find((category) => category.value == form.watch('categoryId'))?.subcategories || []} {...field} />
                   </FormControl>
@@ -171,7 +173,7 @@ const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => 
               name="levelId"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Level</FormLabel>
+                  <FormLabel>Level <span className="text-red-500">*</span></FormLabel>
                   <FormControl>
                     <Combobox options={levels} {...field} />
                   </FormControl>
@@ -185,7 +187,7 @@ const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => 
             name="imageUrl"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Course Banner</FormLabel>
+                <FormLabel>Course Banner <span className="text-red-500">*</span></FormLabel>
                 <FormControl>
                   <FilePicker page="edit-course" value={field.value || ''} onChange={(url) => field.onChange(url)} endpoint="courseBanner" />
                 </FormControl>
@@ -198,7 +200,7 @@ const EditCourseForm = ({ course, categories, levels }: EditCourseFormProps) => 
             name="price"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Price</FormLabel>
+                <FormLabel>Price <span className="text-red-500">*</span></FormLabel>
                 <FormControl>
                   <Input placeholder="29.99" {...field} type="number" step='0.01' className="max-sm:w-full w-1/4"/>
                 </FormControl>
