@@ -1,7 +1,7 @@
 'use client'
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { ArrowLeft, Trash } from "lucide-react";
+import { ArrowLeft, Loader2, Trash } from "lucide-react";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { RichEditor } from "../ui/rich-editor";
@@ -13,6 +13,9 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CourseSection, CourseSectionResource, MuxData } from "@prisma/client";
 import CourseSectionResourceForm from "./CourseSectionResourceForm";
+import toast from "react-hot-toast";
+import axios from "axios";
+import MuxPlayer from "@mux/mux-player-react";
 
 const editCourseSectionForm = z.object({
   title: z.string().min(2, { message: 'Title is required and minimum 2 characters' }),
@@ -40,8 +43,17 @@ const EditCourseSectionForm = ({ section, courseId, isComplete }: EditCourseSect
   });
 
   const onSubmit = async (values: z.infer<typeof editCourseSectionForm>) => {
-    console.log(values);
+    try {
+      await axios.put(`/api/course/${courseId}/section/${section.id}`, values);
+      toast.success('Section updated successfully');
+      router.refresh();
+    } catch (error) {
+      console.log('[EDIT SECTION ERROR]', error);
+      toast.error('Failed to update section');
+    }
   }
+
+  const { isValid, isSubmitting } = form.formState
 
   return (
     <div className="p-10">
@@ -92,6 +104,13 @@ const EditCourseSectionForm = ({ section, courseId, isComplete }: EditCourseSect
               </FormItem>
             )}
           />
+          {
+            section.videoUrl && (
+              <div className="my-5">
+                <MuxPlayer playbackId={section.muxData?.playbackId} className="md:max-w-[600px]"/>
+              </div>
+            )
+          }
           <FormField
             control={form.control}
             name="videoUrl"
@@ -131,7 +150,9 @@ const EditCourseSectionForm = ({ section, courseId, isComplete }: EditCourseSect
             <Link href={`/instructor/courses/${courseId}/sections`}>
               <Button variant='outline' type="button">Cancel</Button>
             </Link>
-            <Button type="submit">Save</Button>
+            <Button type="submit" disabled={!isValid || isSubmitting}>
+              {isSubmitting ? <Loader2 className="w-4 h-4 animate-spin"/>: 'Save'}
+            </Button>
           </div>
         </form>
       </Form>
