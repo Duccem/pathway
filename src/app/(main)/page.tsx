@@ -3,9 +3,9 @@ import CourseCard from "@/components/course/CourseCard";
 import { getCategories } from "@/lib/queries/categories";
 import { getCoursesByCategory } from "@/lib/queries/courses";
 
-export default async function Home({ searchParams }: { searchParams: { categoryId: string | null, search: string | null }} ) {
+export default async function Home({ searchParams }: { searchParams: { categoryId: string | null}} ) {
   const categories = await getCategories();
-  const courses = await getCoursesByCategory(searchParams.categoryId || null, searchParams.search || null);
+  const courses = await getCoursesByCategory(searchParams.categoryId || null);
   return (
     <div>
       <CategoriesList categories={categories} selectedCategory={searchParams.categoryId || null}/>
