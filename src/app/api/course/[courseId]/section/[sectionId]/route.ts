@@ -8,9 +8,7 @@ const { video } = new Mux({
 });
 export const PUT = async (
   req: NextRequest,
-  {
-    params: { courseId, sectionId },
-  }: { params: { courseId: string; sectionId: string } }
+  { params: { courseId, sectionId } }: { params: { courseId: string; sectionId: string } }
 ) => {
   try {
     const { userId } = auth();
@@ -65,12 +63,9 @@ export const PUT = async (
 
 export const DELETE = async (
   req: NextRequest,
-  {
-    params: { courseId, sectionId },
-  }: { params: { courseId: string; sectionId: string } }
+  { params: { courseId, sectionId } }: { params: { courseId: string; sectionId: string } }
 ) => {
   try {
-    console.log('trying to delete section');
     const { userId } = auth();
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });
@@ -103,9 +98,7 @@ export const DELETE = async (
         await db.muxData.delete({ where: { id: existingMuxData.id } });
       }
     }
-    console.log('section about to be deleted');
     await db.courseSection.delete({ where: { id: sectionId, courseId } });
-    console.log('section deleted');
     const publishedSectionsInCourse = await db.courseSection.findMany({
       where: { courseId, isPublished: true },
     });

@@ -1,16 +1,10 @@
 import { getCourse } from '@/lib/queries/courses';
 import { getPurchase } from '@/lib/queries/purchase';
-import {
-  createStripeCustomer,
-  getStripeCustomer,
-} from '@/lib/queries/stripeCustomer';
+import { createStripeCustomer, getStripeCustomer } from '@/lib/queries/stripeCustomer';
 import stripe from '@/lib/stripe';
 import { currentUser } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
-export const POST = async (
-  req: NextRequest,
-  { params: { courseId } }: { params: { courseId: string } }
-) => {
+export const POST = async (req: NextRequest, { params: { courseId } }: { params: { courseId: string } }) => {
   try {
     const user = await currentUser();
     if (!user || !user.id || !user.emailAddresses?.[0].emailAddress) {
@@ -50,7 +44,7 @@ export const POST = async (
       stripeCustomer = await createStripeCustomer(user.id, customer.id);
     }
     const session = await stripe.checkout.sessions.create({
-      customer: stripeCustomer.stripeCustomerId,
+      customer: stripeCustomer.externalId,
       payment_method_types: ['card'],
       line_items,
       mode: 'payment',

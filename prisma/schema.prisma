@@ -1,12 +1,11 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-  
 }
 
 model Course {
@@ -107,33 +106,33 @@ model CourseSectionResource {
 
 model CourseSectionProgress {
   id          String        @id @default(uuid())
-  studentId   String        
+  studentId   String
   sectionId   String
   section     CourseSection @relation(fields: [sectionId], references: [id], onDelete: Cascade)
   isCompleted Boolean       @default(false)
   createdAt   DateTime      @default(now())
   updatedAt   DateTime      @default(now()) @updatedAt
 
-  @@index([sectionId])
   @@unique([studentId, sectionId])
+  @@index([sectionId])
 }
 
 model CoursePurchase {
   id         String   @id @default(uuid())
-  customerId String   
-  courseId   String   
+  customerId String
+  courseId   String
   course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt
 
-  @@index([courseId])
   @@unique([customerId, courseId])
+  @@index([courseId])
 }
 
 model StripeCustomer {
-  id               String   @id @default(uuid())
-  stripeCustomerId String   @unique
-  customerId       String   @unique
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @default(now()) @updatedAt
+  id         String   @id @default(uuid())
+  externalId String   @unique
+  customerId String   @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @default(now()) @updatedAt
 }

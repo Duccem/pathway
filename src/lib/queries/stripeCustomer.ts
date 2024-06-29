@@ -6,20 +6,17 @@ export const getStripeCustomer = async (customerId: string) => {
       customerId,
     },
     select: {
-      stripeCustomerId: true,
+      externalId: true,
     },
   });
   return customer;
 };
 
-export const createStripeCustomer = async (
-  customerId: string,
-  stripeCustomerId: string
-) => {
+export const createStripeCustomer = async (customerId: string, externalId: string) => {
   const customer = await db.stripeCustomer.create({
     data: {
       customerId,
-      stripeCustomerId,
+      externalId,
     },
   });
   return customer;

@@ -9,11 +9,7 @@ export const POST = async (req: NextRequest) => {
   const signature = headers().get('Stripe-Signature') as string;
   let event: Stripe.Event;
   try {
-    event = stripe.webhooks.constructEvent(
-      rawBody,
-      signature,
-      process.env.STRIPE_WEBHOOK_SECRET!
-    );
+    event = stripe.webhooks.constructEvent(rawBody, signature, process.env.STRIPE_WEBHOOK_SECRET!);
   } catch (err: any) {
     return new NextResponse(`Webhook error: ${err.message}`, { status: 400 });
   }
@@ -23,7 +19,6 @@ export const POST = async (req: NextRequest) => {
   const courseId = session?.metadata?.courseId;
 
   if (event.type === 'checkout.session.completed') {
-    console.log(session);
     if (!customerId || !courseId) {
       console.log('Missing metadata');
       return new NextResponse('Missing metadata', { status: 400 });

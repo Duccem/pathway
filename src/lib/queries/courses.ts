@@ -39,13 +39,9 @@ export const getCourseSection = async (sectionId: string, courseId: string) => {
 };
 
 export const getCoursesByCategory = async (
-  categoryId: string | null,
-  search: string | null
+  categoryId: string | null
 ): Promise<Course[]> => {
   let whereClause: any = categoryId ? { categoryId } : {};
-  whereClause = search
-    ? { ...whereClause, title: { contains: search } }
-    : whereClause;
   const courses = await db.course.findMany({
     where: whereClause,
     include: {
