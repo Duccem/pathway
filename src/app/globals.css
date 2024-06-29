@@ -94,3 +94,6 @@ html, body, :root {
   width: 40px;
   height: 40px;
 }
+.ql-container {
+  font-family: '__Nunito_14f33d', '__Nunito_Fallback_14f33d' !important;
+}

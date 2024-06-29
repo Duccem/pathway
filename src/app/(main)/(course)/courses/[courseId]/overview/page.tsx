@@ -1,3 +1,4 @@
+import CourseSectionMenu from "@/components/layout/CourseSectionMenu";
 import ReadText from "@/components/shared/ReadText";
 import { getCourse } from "@/lib/queries/courses";
 import { getLevel } from "@/lib/queries/levels";
@@ -21,8 +22,10 @@ const CourseOverviewPage = async ({ params: { courseId } }: { params: CourseOver
   return (
     <div className="px-6 py-4 flex flex-col gap-5 text-sm">
       <div className="flex flex-col justify-center gap-2">
-        <h1 className="text-2xl font-bold">{course.title}</h1>
-        {/* Section menu for mobile */}
+        <div className="flex justify-between">
+          <h1 className="text-2xl font-bold">{course.title}</h1>
+          <CourseSectionMenu course={course} />
+        </div>
         <p className="font-medium">
           {course.subtitle}
         </p>

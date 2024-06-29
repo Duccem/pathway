@@ -61,3 +61,75 @@ export const getCoursesByCategory = async (
   });
   return courses;
 };
+
+export const getSectionResources = async (sectionId: string) => {
+  const resources = await db.courseSectionResource.findMany({
+    where: {
+      sectionId,
+    },
+  });
+  return resources;
+};
+
+export const getSectionMuxData = async (sectionId: string) => {
+  const muxData = await db.muxData.findUnique({
+    where: {
+      sectionId,
+    },
+  });
+  return muxData;
+};
+
+export const getUserSectionProgress = async (
+  userId: string,
+  sectionId: string
+) => {
+  const progress = await db.courseSectionProgress.findUnique({
+    where: {
+      studentId_sectionId: {
+        studentId: userId,
+        sectionId,
+      },
+    },
+  });
+  return progress;
+};
+
+export const createCourseSectionProgress = async (
+  studentId: string,
+  sectionId: string,
+  isCompleted: boolean
+) => {
+  await db.courseSectionProgress.upsert({
+    where: {
+      studentId_sectionId: {
+        studentId,
+        sectionId,
+      },
+    },
+    update: {
+      isCompleted,
+    },
+    create: {
+      studentId,
+      sectionId,
+      isCompleted,
+    },
+  });
+};
+
+export const courseSectionProgressCompletedCount = async (
+  studentId: string,
+  publishedSectionsIds: string[]
+) => {
+  const count = await db.courseSectionProgress.count({
+    where: {
+      studentId,
+      sectionId: {
+        in: publishedSectionsIds,
+      },
+      isCompleted: true,
+    },
+  });
+  return count;
+};
