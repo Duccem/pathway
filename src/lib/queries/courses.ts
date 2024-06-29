@@ -133,3 +133,29 @@ export const courseSectionProgressCompletedCount = async (
   });
   return count;
 };
+
+export const searchCourses = async (search: string) => {
+  const courses = await db.course.findMany({
+    where: {
+      OR: [
+        {
+          title: {
+            contains: search,
+            mode: 'insensitive',
+          },
+        },
+        {
+          subtitle: {
+            contains: search,
+            mode: 'insensitive',
+          },
+        },
+      ],
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+    take: 3,
+  });
+  return courses;
+};

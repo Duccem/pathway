@@ -1,10 +1,12 @@
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  
 }
 
 model Course {
@@ -118,8 +120,8 @@ model CourseSectionProgress {
 
 model CoursePurchase {
   id         String   @id @default(uuid())
-  customerId String   @unique
-  courseId   String   @unique
+  customerId String   
+  courseId   String   
   course     Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   createdAt  DateTime @default(now())
   updatedAt  DateTime @default(now()) @updatedAt

@@ -1,4 +1,5 @@
 import { db } from '@/lib/db';
+import { searchCourses } from '@/lib/queries/courses';
 import { auth } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -20,6 +21,17 @@ export const POST = async (req: NextRequest) => {
     return NextResponse.json(newCourse, { status: 201 });
   } catch (error) {
     console.log('[COURSE_POST]', error);
+    return new NextResponse('Internal Server Error', { status: 500 });
+  }
+};
+
+export const GET = async (req: NextRequest) => {
+  try {
+    const search = req.nextUrl.searchParams.get('search');
+    const courses = await searchCourses(search ? search : '');
+    return NextResponse.json(courses, { status: 200 });
+  } catch (error) {
+    console.log('[COURSE_GET]', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 };

@@ -1,6 +1,5 @@
 import { Course, CourseSection } from "@prisma/client";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from "../ui/sheet";
 
 interface SectionMenuProps {
@@ -11,8 +10,8 @@ const CourseSectionMenu = ({ course }: SectionMenuProps) => {
   return (
     <div className="z-60 md:hidden">
       <Sheet>
-        <SheetTrigger>
-          <Button>Sections</Button>
+        <SheetTrigger className="p-3 rounded-lg bg-[#9747FF] text-primary-foreground hover:bg-primary/90">
+          Sections
         </SheetTrigger>
         <SheetContent className="flex flex-col">
         <p className="text-sm px-1 font-bold text-[#9747FF] mt-4">COURSE NAVIGATION</p>

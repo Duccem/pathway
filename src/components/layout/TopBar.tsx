@@ -11,11 +11,17 @@ import { Button } from '@/components/ui/button';
 import { UserButton, useAuth } from '@clerk/nextjs';
 import { Menu } from 'lucide-react';
 import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import Searcher from '../shared/Searcher';
 
 const TobBar = () => {
+  const [signed, setSigned] = useState(false);
   const { isSignedIn } = useAuth();
   const pathName = usePathname();
+  useEffect(()=> {
+    setSigned(isSignedIn || false)
+  
+  }, [isSignedIn])
   const topRoutes = [
     { label: 'Instructor', path: '/instructor/courses' },
     { label: 'Learning', path: '/learning' },
@@ -81,7 +87,7 @@ const TobBar = () => {
             </SheetContent>
           </Sheet>
         </div>
-        {isSignedIn ? (
+        {signed ? (
           <UserButton afterSignOutUrl="/sign-in" />
         ) : (
           <Link href="sign-in" className="">

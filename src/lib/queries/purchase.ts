@@ -20,3 +20,25 @@ export const createPurchase = async (customerId: string, courseId: string) => {
     },
   });
 };
+
+export const getPurchasedCourses = async (customerId: string) => {
+  const purchasedCourses = await db.coursePurchase.findMany({
+    where: {
+      customerId,
+    },
+    select: {
+      course: {
+        include: {
+          category: true,
+          subCategory: true,
+          sections: {
+            where: {
+              isPublished: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  return purchasedCourses;
+};

@@ -27,7 +27,8 @@ const CourseSideBar = async ({ course, studentId }: CourseSideBarProps) => {
           </div>
         )
       }
-      <Link href={`/courses/${course.id}/overview`} className="p-3 rounded-lg hover:bg-[#dfcbfa] mt-4">Overview</Link>
+      <Link href={`/courses/${course.id}/overview`} className="p-3 rounded-lg hover:bg-[#dfcbfa]">Overview</Link>
+      <p className="pl-3 text-sm font-bold text-[#9747FF] mt-4">TEMARIO</p>
       {
         publishedSections.map((section) => (
           <Link href={`/courses/${course.id}/section/${section.id}`} key={section.id} className="p-3 rounded-lg hover:bg-[#dfcbfa]">

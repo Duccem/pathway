@@ -2,6 +2,7 @@ import ToastProvider from "@/components/providers/ToastProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
+import NextTopLoader from "nextjs-toploader";
 import "./globals.css";
 
 const inter = Nunito({ subsets: ["latin"] });
@@ -25,6 +26,12 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className} suppressHydrationWarning={true}>
+          <NextTopLoader 
+            color="#9747FF"
+            height={5}
+            shadow={false}
+            showSpinner={false}
+          />
           <ToastProvider/>
           {children}
         </body>
