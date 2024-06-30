@@ -25,8 +25,13 @@ export class PrismaCourseSectionRepository implements CourseSectionRepository {
   async getSection(courseId: string, sectionId: string): Promise<CourseSection> {
     const section = await this.model.findFirst({
       where: { courseId, id: sectionId },
+      include: {
+        muxData: true,
+        resources: true,
+      },
     });
-    return section ? CourseSection.fromPrimitives(section) : null;
+    const { muxData: videoData, ...rest } = section;
+    return section ? CourseSection.fromPrimitives({ ...rest, videoData }) : null;
   }
   async getCoursesSections(courseId: string): Promise<CourseSection[]> {
     const sections = await this.model.findMany({
@@ -34,11 +39,19 @@ export class PrismaCourseSectionRepository implements CourseSectionRepository {
     });
     return sections.map((section) => CourseSection.fromPrimitives(section));
   }
+
+  async getResources(sectionId: string): Promise<CourseSectionResource[]> {
+    const resources = await this.client.courseSectionResource.findMany({
+      where: { sectionId },
+    });
+    return resources.map((resource) => CourseSectionResource.fromPrimitives(resource));
+  }
   async saveSection(section: CourseSection): Promise<void> {
+    const { videoData, resources, ...sectionData } = section.toPrimitives();
     await this.model.upsert({
       where: { id: section.id },
-      update: section.toPrimitives(),
-      create: section.toPrimitives(),
+      update: sectionData,
+      create: sectionData,
     });
   }
   async addResource(resource: CourseSectionResource): Promise<void> {

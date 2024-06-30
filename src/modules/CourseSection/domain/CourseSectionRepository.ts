@@ -7,6 +7,7 @@ export interface CourseSectionRepository {
   getVideoData(sectionId: string): Promise<VideoData>;
   getSection(courseId: string, sectionId: string): Promise<CourseSection>;
   getCoursesSections(courseId: string): Promise<CourseSection[]>;
+  getResources(sectionId: string): Promise<CourseSectionResource[]>;
   saveSection(section: CourseSection): Promise<void>;
   addResource(resource: CourseSectionResource): Promise<void>;
   createVideoData(videoData: VideoData): Promise<void>;

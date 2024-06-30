@@ -1,6 +1,12 @@
 import CourseSectionDetail from "@/components/course/CourseSectionDetail";
-import { getCourse, getSectionMuxData, getSectionResources, getUserSectionProgress } from "@/lib/queries/courses";
-import { getPurchase } from "@/lib/queries/purchase";
+import { getUserSectionProgress } from "@/lib/queries/courses";
+import { getCourse } from "@/modules/Course/presentation/page-actions/get-course";
+import { getPurchase } from "@/modules/CoursePurchase/presentation/get-purchase";
+import { getCourseSection } from "@/modules/CourseSection/presentation/page-actions/get-course-section";
+import { getCourseSections } from "@/modules/CourseSection/presentation/page-actions/get-course-sections";
+import { getSectionResources } from "@/modules/CourseSection/presentation/page-actions/get-section-resources";
+import { getSectionVideoData } from "@/modules/CourseSection/presentation/page-actions/get-section-viode-data";
+import { getUserProgress } from "@/modules/CourseSectionProgress/presentation/get-user-progress";
 import { auth } from "@clerk/nextjs/server";
 import { CourseSectionResource } from "@prisma/client";
 import { redirect } from "next/navigation";
@@ -19,7 +25,8 @@ const CourseSectionDetailPage = async ({ params }: { params: CourseSectionDetail
   if (!course) {
     return redirect('/');
   }
-  const section = course.sections.find((section) => section.id === sectionId);
+  const section = await getCourseSection(courseId, sectionId);
+  const sections = await getCourseSections(courseId);
   if (!section) {
     return redirect(`/courses/${courseId}/overview`);
   }
@@ -30,12 +37,12 @@ const CourseSectionDetailPage = async ({ params }: { params: CourseSectionDetail
     resources = await getSectionResources(sectionId);
   }
   if (section.isFree || purchase) {
-    muxData = await getSectionMuxData(sectionId);
+    muxData = await getSectionVideoData(sectionId);
   }
-  const progress = await getUserSectionProgress(userId, sectionId);
+  const progress = await getUserProgress(userId, sectionId);
   return (
     <CourseSectionDetail 
-      course={course} 
+      course={{...course, sections}} 
       purchase={purchase} 
       section={section} 
       resources={resources} 

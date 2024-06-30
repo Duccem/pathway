@@ -1,8 +1,10 @@
 import CourseSectionMenu from '@/components/layout/CourseSectionMenu';
 import ReadText from '@/components/shared/ReadText';
 import { Button } from '@/components/ui/button';
-import { getCourse, getSectionMuxData } from '@/lib/queries/courses';
 import { getLevel } from '@/lib/queries/levels';
+import { getCourse } from '@/modules/Course/presentation/page-actions/get-course';
+import { getCourseSections } from '@/modules/CourseSection/presentation/page-actions/get-course-sections';
+import { getSectionVideoData } from '@/modules/CourseSection/presentation/page-actions/get-section-viode-data';
 import { auth, clerkClient } from '@clerk/nextjs/server';
 import MuxPlayer from '@mux/mux-player-react';
 import { CirclePlay } from 'lucide-react';
@@ -25,7 +27,8 @@ const CourseOverviewPage = async ({
   if (!course) {
     return redirect('/');
   }
-  const muxData = await getSectionMuxData(course.sections[0].id);
+  const sections = await getCourseSections(courseId);
+  const muxData = await getSectionVideoData(sections[0].id);
   const instructor = await clerkClient.users.getUser(course.instructorId);
   const level = await getLevel(course.levelId || '');
   return (
@@ -36,7 +39,7 @@ const CourseOverviewPage = async ({
           alt={course.title}
           className="w-full h-[250px] object-cover"
         />
-        <CourseSectionMenu course={course} />
+        <CourseSectionMenu course={{...course, sections}} />
         <div className="flex max-sm:flex-col">
           <div className="flex-1">
             <div className="flex gap-2 text-xl font-bold">
@@ -79,7 +82,7 @@ const CourseOverviewPage = async ({
                 className="md:max-w-[400px] border-2 rounded-lg border-[#9747FF]"
               />
               <Link
-                href={`/courses/${courseId}/section/${course.sections[0].id}`}
+                href={`/courses/${courseId}/section/${sections[0].id}`}
               >
                 <Button>
                   <CirclePlay className="h-4 w-4 mr-2" />

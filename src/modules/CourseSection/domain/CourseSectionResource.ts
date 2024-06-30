@@ -6,7 +6,6 @@ export class CourseSectionResource {
     public name: string,
     public fileUrl: string,
     public sectionId: string,
-    public courseId: string,
     public createdAt: Date,
     public updatedAt: Date
   ) {}
@@ -17,7 +16,6 @@ export class CourseSectionResource {
       data.name,
       data.fileUrl,
       data.sectionId,
-      data.courseId,
       data.createdAt,
       data.updatedAt
     );
@@ -29,7 +27,6 @@ export class CourseSectionResource {
       name: this.name,
       fileUrl: this.fileUrl,
       sectionId: this.sectionId,
-      courseId: this.courseId,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };

@@ -74,7 +74,7 @@ export class Course extends Aggregate {
       subtitle: this.subtitle,
       description: this.description,
       price: this.price,
-      image: this.imageUrl,
+      imageUrl: this.imageUrl,
       categoryId: this.categoryId,
       subCategoryId: this.subCategoryId,
       levelId: this.levelId,

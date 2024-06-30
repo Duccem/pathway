@@ -1,11 +1,11 @@
 import EditCourseForm from '@/components/course/EditCourseForm';
 import IncompleteBanner from '@/components/course/IncompleteBanner';
-import { getCategories } from '@/lib/queries/categories';
-import { getCourse } from '@/lib/queries/courses';
-import { getLevels } from '@/lib/queries/levels';
+import { getCategories } from '@/modules/Course/presentation/page-actions/get-categories';
+import { getCourse } from '@/modules/Course/presentation/page-actions/get-course';
+import { getLevels } from '@/modules/Course/presentation/page-actions/get-levels';
+import { getCourseSections } from '@/modules/CourseSection/presentation/page-actions/get-course-sections';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
-import React from 'react';
 
 interface CourseBasicPageParams {
   params: {
@@ -19,6 +19,7 @@ const CourseBasicPage = async ({ params: { courseId } }: CourseBasicPageParams) 
   if (!course) return redirect('/instructor/courses');
   const categories = await getCategories();
   const levels = await getLevels();
+  const sections = await getCourseSections(courseId);
 
   const requiredFields = [
     course.title,
@@ -28,7 +29,7 @@ const CourseBasicPage = async ({ params: { courseId } }: CourseBasicPageParams) 
     course.levelId, 
     course.price, 
     course.imageUrl,
-    course.sections.some(section => section.isPublished)
+    sections.some(section => section.isPublished)
   ];
   const isComplete = requiredFields.every(Boolean);
   const requiredFieldsCount = requiredFields.length;
@@ -41,7 +42,7 @@ const CourseBasicPage = async ({ params: { courseId } }: CourseBasicPageParams) 
         categories={categories.map((category) => ({
           label: category.name,
           value: category.id,
-          subcategories: category.subcategories.map((subcategory) => ({
+          subcategories: category.subCategories.map((subcategory) => ({
             label: subcategory.name,
             value: subcategory.id
           }))

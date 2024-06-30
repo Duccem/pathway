@@ -55,6 +55,8 @@ export class CourseSection extends Aggregate {
       isFree: this.isFree,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      videoData: this.videoData ? this.videoData.toPrimitives() : undefined,
+      resources: this.resources ? this.resources.map((resource) => resource.toPrimitives()) : undefined,
     };
   }
 
@@ -76,15 +78,7 @@ export class CourseSection extends Aggregate {
       this.resources = [];
     }
     this.resources.push(
-      new CourseSectionResource(
-        Uuid.random().value,
-        name,
-        fileUrl,
-        this.id,
-        this.courseId,
-        new Date(),
-        new Date()
-      )
+      new CourseSectionResource(Uuid.random().value, name, fileUrl, this.id, new Date(), new Date())
     );
   }
 

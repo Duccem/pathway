@@ -1,6 +1,7 @@
 import EditCourseSectionForm from "@/components/course/EditCourseSectionForm";
 import IncompleteBanner from "@/components/course/IncompleteBanner";
-import { getCourse, getCourseSection } from "@/lib/queries/courses";
+import { getCourse } from "@/modules/Course/presentation/page-actions/get-course";
+import { getCourseSection } from "@/modules/CourseSection/presentation/page-actions/get-course-section";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 

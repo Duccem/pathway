@@ -1,7 +1,8 @@
 import CategoriesList from "@/components/categories/CategoriesList";
 import CourseCard from "@/components/course/CourseCard";
-import { getCategories } from "@/lib/queries/categories";
 import { getCoursesByCategory } from "@/lib/queries/courses";
+import { getCategories } from "@/modules/Course/presentation/page-actions/get-categories";
+
 
 export default async function Home({ searchParams }: { searchParams: { categoryId: string | null}} ) {
   const categories = await getCategories();

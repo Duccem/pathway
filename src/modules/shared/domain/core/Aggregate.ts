@@ -2,7 +2,7 @@ import { DomainEvent } from './DomainEvent';
 
 export abstract class Aggregate {
   private domainEvents: Array<DomainEvent>;
-  constructor(public id: string, public createdAt?: Date, public updatedAt?: Date) {
+  constructor(public id: string, public createdAt: Date, public updatedAt: Date) {
     this.domainEvents = [];
   }
 

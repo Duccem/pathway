@@ -1,5 +1,4 @@
 import Sidebar from "@/components/layout/Sidebar";
-import TopBar from "@/components/layout/TopBar";
 import BackButton from "@/components/shared/BackButton";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";

@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { CoursePurchase } from '../domain/CoursePurchase';
-import { CoursePurchaseRepository } from '../domain/CoursePurchaseRepository';
+import { CoursePurchaseRepository, PurchaseWithCourse } from '../domain/CoursePurchaseRepository';
 import { Customer } from '../domain/Customer';
 
 export class PrismaCoursePurchaseRepository implements CoursePurchaseRepository {
@@ -52,5 +52,18 @@ export class PrismaCoursePurchaseRepository implements CoursePurchaseRepository 
         customerId: customer.customerId,
       },
     });
+  }
+  async getPurchasedCourses(instructorId: string): Promise<PurchaseWithCourse[]> {
+    const purchases = await this.model.findMany({
+      where: {
+        course: {
+          instructorId,
+        },
+      },
+      include: {
+        course: true,
+      },
+    });
+    return purchases;
   }
 }

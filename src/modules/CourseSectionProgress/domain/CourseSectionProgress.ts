@@ -29,7 +29,7 @@ export class CourseSectionProgress extends Aggregate {
       id: this.id,
       studentId: this.studentId,
       sectionId: this.sectionId,
-      isComplete: this.isCompleted,
+      isCompleted: this.isCompleted,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     };

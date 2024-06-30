@@ -1,5 +1,6 @@
 import CreateSectionCourseForm from "@/components/course/CreateSectionCourseForm";
-import { getCourse } from "@/lib/queries/courses";
+import { getCourse } from "@/modules/Course/presentation/page-actions/get-course";
+import { getCourseSections } from "@/modules/CourseSection/presentation/page-actions/get-course-sections";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 
@@ -8,8 +9,9 @@ const CourseSectionsPage = async ({ params: { courseId } }: { params: { courseId
   if(!userId) return redirect('/sign-in');
   const course = await getCourse(courseId, userId);
   if(!course) return redirect('/instructor/courses');
+  const sections = await getCourseSections(courseId);
   return (
-    <CreateSectionCourseForm course={course as any}/>
+    <CreateSectionCourseForm course={{...course, sections} as any}/>
   );
 }
 

@@ -1,7 +1,8 @@
 import { CourseTableColumns } from "@/components/course/CourseTableColum";
 import { Button } from "@/components/ui/button";
 import { DataTable } from "@/components/ui/data-table";
-import { getCourses } from "@/lib/queries/courses";
+import { getCourses } from "@/modules/Course/presentation/page-actions/get-courses";
+
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
 import { redirect } from "next/navigation";

@@ -2,12 +2,10 @@ import { PrismaClient } from '@prisma/client';
 import { Category } from '../domain/Category';
 import { Course } from '../domain/Course';
 import { CourseRepository } from '../domain/CourseRepository';
+import { Level } from '../domain/Level';
 
 export class PrismaCourseRepository implements CourseRepository {
   constructor(private client: PrismaClient) {}
-  deleteCourse(courseId: string): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
 
   get model() {
     return this.client.course;
@@ -87,5 +85,14 @@ export class PrismaCourseRepository implements CourseRepository {
       },
     });
     return courses ? courses.map((course) => Course.fromPrimitives(course)) : [];
+  }
+  async getCourseLevels(): Promise<Level[]> {
+    const levels = await this.client.level.findMany();
+    return levels ? levels.map((level) => Level.fromPrimitives(level)) : [];
+  }
+  async deleteCourse(courseId: string): Promise<void> {
+    await this.model.delete({
+      where: { id: courseId },
+    });
   }
 }

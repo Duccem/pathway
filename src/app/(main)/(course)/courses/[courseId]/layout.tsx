@@ -1,9 +1,9 @@
-import { getCourse } from '@/lib/queries/courses';
+import CourseSideBar from '@/components/layout/CourseSideBar';
+import { getCourse } from '@/modules/Course/presentation/page-actions/get-course';
+import { getCourseSections } from '@/modules/CourseSection/presentation/page-actions/get-course-sections';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
-import TopBar from '@/components/layout/TopBar'
 import React from 'react';
-import CourseSideBar from '@/components/layout/CourseSideBar';
 
 interface CourseDetailLayoutProps {
   children: React.ReactNode;
@@ -21,9 +21,10 @@ const CourseDetailLayout = async ({ children, params: { courseId } }: CourseDeta
   if (!course) {
     return redirect('/')
   }
+  const sections = await getCourseSections(courseId)
   return (
     <div className='flex-1 flex '>
-      <CourseSideBar course={course} studentId={userId}></CourseSideBar>
+      <CourseSideBar course={{...course, sections}} studentId={userId}></CourseSideBar>
       <div className='flex-1'>
         {children}
       </div>

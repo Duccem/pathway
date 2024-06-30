@@ -1,7 +1,7 @@
 import ChartRevenue from "@/components/performance/ChartRevenue"
 import ChartStudents from "@/components/performance/ChartStudents"
 import DataCard from "@/components/performance/DataCard"
-import { getCoursePerformance } from "@/lib/queries/levels"
+import { getPerformance } from "@/modules/CoursePurchase/presentation/get-performance"
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 
@@ -12,7 +12,7 @@ const InstructorPerformancePage = async () => {
     return redirect("/sign-in")
   }
 
-  const { data, totalRevenue, totalSales } = await getCoursePerformance(userId)
+  const { data, totalRevenue, totalSales } = await getPerformance(userId)
 
   return (
     <div className="p-6">
