@@ -30,8 +30,9 @@ export class PrismaCourseRepository implements CourseRepository {
   }
   async getCoursesByCategory(categoryId: string, userId: string): Promise<Course[]> {
     let whereClause: any = categoryId ? { categoryId } : {};
+    whereClause = userId ? { ...whereClause, instructorId: { not: userId } } : whereClause;
     const courses = await this.model.findMany({
-      where: { isPublished: true, NOT: { instructorId: userId }, ...whereClause },
+      where: { isPublished: true, ...whereClause },
       orderBy: {
         createdAt: 'desc',
       },
@@ -39,9 +40,10 @@ export class PrismaCourseRepository implements CourseRepository {
     return courses ? courses.map((course) => Course.fromPrimitives(course)) : [];
   }
   async searchCourses(query: string, userId: string): Promise<Course[]> {
+    const whereClause = userId ? { instructorId: { not: userId } } : {};
     const courses = await this.model.findMany({
       where: {
-        NOT: { instructorId: userId },
+        ...whereClause,
         OR: [
           {
             title: {
