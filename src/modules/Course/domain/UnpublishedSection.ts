@@ -1,7 +1,7 @@
 import { DomainEvent, DomainEventPrimitives } from '@/modules/shared/domain/core/DomainEvent';
 
 export class UnpublishedSection extends DomainEvent {
-  static EVENT_NAME = 'section.unpublished';
+  static EVENT_NAME = 'section_unpublished';
   constructor(params: { userId: string; courseId: string; sectionId: string }) {
     super(UnpublishedSection.EVENT_NAME, params);
   }

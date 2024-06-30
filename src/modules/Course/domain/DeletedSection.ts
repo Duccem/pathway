@@ -1,7 +1,7 @@
 import { DomainEvent, DomainEventPrimitives } from '@/modules/shared/domain/core/DomainEvent';
 
 export class DeletedSection extends DomainEvent {
-  static EVENT_NAME = 'section.deleted';
+  static EVENT_NAME = 'section_deleted';
   constructor(params: { userId: string; courseId: string; sectionId: string }) {
     super(DeletedSection.EVENT_NAME, params);
   }

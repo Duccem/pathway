@@ -99,7 +99,7 @@ export class CourseSection extends Aggregate {
     this.videoData = new VideoData(Uuid.random().value, assetId, playbackId, this.id);
   }
 
-  deleteSection(userId) {
+  deleteSection(userId: string) {
     this.record(new DeletedSection({ courseId: this.courseId, sectionId: this.id, userId }));
   }
 }

@@ -1,4 +1,4 @@
-import { db } from '@/lib/db';
+import { addResource } from '@/modules/CourseSection/presentation/actions/add-resource';
 import { auth } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 interface SaveResourceParams {
@@ -14,39 +14,11 @@ export const POST = async (
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
-
-    const course = await db.course.findUnique({
-      where: {
-        id: courseId,
-        instructorId: userId,
-      },
-    });
-
-    if (!course) {
-      return new NextResponse('Course not found', { status: 404 });
-    }
-
-    const section = await db.courseSection.findUnique({
-      where: {
-        id: sectionId,
-        courseId,
-      },
-    });
-
-    if (!section) {
-      return new NextResponse('Section not found', { status: 404 });
-    }
-
     const { name, fileUrl } = await req.json();
-    const resource = await db.courseSectionResource.create({
-      data: {
-        name,
-        fileUrl,
-        sectionId,
-      },
-    });
 
-    return NextResponse.json(resource, { status: 201 });
+    await addResource(courseId, sectionId, name, fileUrl);
+
+    return NextResponse.json({ message: 'Resource created' }, { status: 201 });
   } catch (error) {
     console.log('[SAVE RESOURCE ERROR]', error);
     return new NextResponse('Internal server error', { status: 500 });
