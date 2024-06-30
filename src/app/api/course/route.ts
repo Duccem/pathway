@@ -1,5 +1,5 @@
-import { db } from '@/lib/db';
-import { searchCourses } from '@/lib/queries/courses';
+import { saveCourse } from '@/modules/Course/presentation/actions/save-course';
+import { searchCourses } from '@/modules/Course/presentation/actions/search-courses';
 import { auth } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -9,16 +9,9 @@ export const POST = async (req: NextRequest) => {
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
-    const { title, categoryId, subCategoryId } = await req.json();
-    const newCourse = await db.course.create({
-      data: {
-        title,
-        categoryId,
-        subCategoryId,
-        instructorId: userId,
-      },
-    });
-    return NextResponse.json(newCourse, { status: 201 });
+    const values = await req.json();
+    await saveCourse({ ...values, userId });
+    return NextResponse.json({ message: 'Course created' }, { status: 201 });
   } catch (error) {
     console.log('[COURSE_POST]', error);
     return new NextResponse('Internal Server Error', { status: 500 });

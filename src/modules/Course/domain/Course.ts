@@ -1,5 +1,4 @@
 import { Aggregate } from '@/modules/shared/domain/core/Aggregate';
-import { Uuid } from '@/modules/shared/domain/core/value-objects/Uuid';
 import { Primitives } from '@/modules/shared/domain/types/Primitives';
 import { Category } from './Category';
 import { DeletedCourse } from './DeletedCourse';
@@ -49,9 +48,9 @@ export class Course extends Aggregate {
     );
   }
 
-  static Create(title: string, categoryId: string, subCategoryId: string, instructorId: string) {
+  static Create(id: string, title: string, categoryId: string, subCategoryId: string, instructorId: string) {
     return new Course(
-      Uuid.random().value,
+      id,
       instructorId,
       title,
       '',

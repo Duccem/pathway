@@ -58,19 +58,8 @@ export class CourseSection extends Aggregate {
     };
   }
 
-  static Create(title: string, courseId: string, position: number) {
-    return new CourseSection(
-      Uuid.random().value,
-      title,
-      '',
-      '',
-      courseId,
-      position,
-      false,
-      false,
-      new Date(),
-      new Date()
-    );
+  static Create(id: string, title: string, courseId: string, position: number) {
+    return new CourseSection(id, title, '', '', courseId, position, false, false, new Date(), new Date());
   }
 
   publish() {

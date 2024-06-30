@@ -1,15 +1,16 @@
 'use client'
-import { Course, CourseSection } from "@prisma/client";
-import Link from "next/link";
-import { Button } from "../ui/button";
-import { usePathname, useRouter } from "next/navigation";
-import { z } from "zod";
-import { useForm } from "react-hook-form";
+import { Uuid } from "@/modules/shared/domain/core/value-objects/Uuid";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Course, CourseSection } from "@prisma/client";
+import axios from "axios";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { z } from "zod";
+import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
-import axios from "axios";
-import toast from "react-hot-toast";
 import CourseSectionList from "./CourseSectionList";
 
 const createSectionCourseSchema = z.object({
@@ -36,8 +37,9 @@ const CreateSectionCourseForm = ({ course }: CreateSectionCourseFormProps) => {
 
   const onSubmit = async (values: z.infer<typeof createSectionCourseSchema>) => {
     try {
-      const response = await axios.post(`/api/course/${course.id}/section`, values);
-      router.push(`/instructor/courses/${course.id}/sections/${response.data.id}`);
+      const newId = Uuid.random().value;
+      await axios.post(`/api/course/${course.id}/section`, {...values, id: newId});
+      router.push(`/instructor/courses/${course.id}/sections/${newId}`);
       toast.success('Section created successfully');
     } catch (error) {
       toast.error('Failed to create section');

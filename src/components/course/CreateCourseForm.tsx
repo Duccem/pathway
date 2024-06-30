@@ -1,8 +1,5 @@
 'use client';
-import { z } from "zod";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -10,13 +7,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Combobox } from "../ui/combobox";
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Uuid } from "@/modules/shared/domain/core/value-objects/Uuid";
+import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { useRouter } from "next/navigation";
-import toast from "react-hot-toast";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { z } from "zod";
+import { Combobox } from "../ui/combobox";
 const createCourseFormSchema = z.object({
   title: z.string().min(2, { message: 'Title is required and minimum 2 characters' }),
   categoryId: z.string().min(1, { message: 'Category is required' }),
@@ -47,8 +48,9 @@ const CreateCourseForm = ({ categories }: CreateCourseFormProps) => {
 
   const onSubmit = async (values: z.infer<typeof createCourseFormSchema>) => {
     try {
-      const response = await axios.post('/api/course', values);
-      router.push(`/instructor/courses/${response.data.id}/basic`);
+      const newId = Uuid.random().value;
+      await axios.post('/api/course', {id: newId, ...values});
+      router.push(`/instructor/courses/${newId}/basic`);
       toast.success('Course created successfully');
     } catch (error) {
       console.log('Failed to create course', error);
