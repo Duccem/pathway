@@ -7,7 +7,7 @@ export class QStashEventBus implements EventBus {
     const publishedEvents = [];
     for (const event of events) {
       const publishedEvent = this.qstashClient.publishJSON({
-        url: `https://dfvpkpzq-3000.use.devtunnels.ms/api/webhooks/events/${event.eventName}`,
+        url: `${process.env.QSTASH_APP_URL}/api/webhooks/events/${event.eventName}`,
         body: event.toPrimitive(),
       });
       publishedEvents.push(publishedEvent);

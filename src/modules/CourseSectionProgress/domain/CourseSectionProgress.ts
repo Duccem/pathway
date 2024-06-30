@@ -18,7 +18,7 @@ export class CourseSectionProgress extends Aggregate {
       data.id,
       data.studentId,
       data.sectionId,
-      data.isComplete,
+      data.isCompleted,
       data.createdAt,
       data.updatedAt
     );

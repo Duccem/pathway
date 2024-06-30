@@ -1,6 +1,6 @@
 import { GetCourseAllSections } from '@/modules/CourseSection/application/GetCourseAllSections';
 import { PrismaCourseSectionRepository } from '@/modules/CourseSection/infrastructure/PrismaCourseSectionRepository';
-import { db } from '@/modules/shared/presentation/db';
+import { db } from '@/modules/shared/presentation/connections/db';
 import { PublishCourse } from '../../application/PublishCourse';
 import { PrismaCourseRepository } from '../../infrastructure/PrismaCourseRepository';
 

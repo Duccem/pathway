@@ -1,7 +1,7 @@
 import { QStashEventBus } from '@/modules/shared/infrastructure/events/QStashEventBus';
-import { db } from '@/modules/shared/presentation/db';
-import mux from '@/modules/shared/presentation/mux';
-import qstashClient from '@/modules/shared/presentation/qstash';
+import { db } from '@/modules/shared/presentation/connections/db';
+import mux from '@/modules/shared/presentation/connections/mux';
+import qstashClient from '@/modules/shared/presentation/connections/qstash';
 import { DeleteSection } from '../../application/DeleteSection';
 import { MuxVideoStoreService } from '../../infrastructure/MuxVideoStoreService';
 import { PrismaCourseSectionRepository } from '../../infrastructure/PrismaCourseSectionRepository';

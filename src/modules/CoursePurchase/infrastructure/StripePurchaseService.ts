@@ -7,7 +7,7 @@ import { Customer } from '../domain/Customer';
 export class StripePurchaseService implements CoursePurchaseService {
   constructor(private stripe: Stripe) {}
   async getCustomer(email: string): Promise<any> {
-    await this.stripe.customers.create({
+    return await this.stripe.customers.create({
       email,
     });
   }
@@ -34,7 +34,7 @@ export class StripePurchaseService implements CoursePurchaseService {
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/courses/${course.id}/overview?cancel=true`,
       metadata: {
         courseId: course.id,
-        customerId: customer.id,
+        customerId: customer.customerId,
       },
     });
     return session.url;

@@ -14,4 +14,5 @@ export interface CourseSectionRepository {
   removeResource(resourceId: string, sectionId: string): Promise<void>;
   removeVideoData(videoDataId: string): Promise<void>;
   deleteSection(sectionId: string): Promise<void>;
+  reorderSections(sections: CourseSection): Promise<void>;
 }

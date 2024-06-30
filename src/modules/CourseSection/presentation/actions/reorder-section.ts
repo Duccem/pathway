@@ -1,5 +1,5 @@
 import { Primitives } from '@/modules/shared/domain/types/Primitives';
-import { db } from '@/modules/shared/presentation/db';
+import { db } from '@/modules/shared/presentation/connections/db';
 import { ReorderSection } from '../../application/ReorderSection';
 import { CourseSection } from '../../domain/CourseSection';
 import { PrismaCourseSectionRepository } from '../../infrastructure/PrismaCourseSectionRepository';

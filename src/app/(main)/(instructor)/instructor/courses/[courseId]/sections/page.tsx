@@ -1,5 +1,5 @@
-import CreateSectionCourseForm from "@/components/course/CreateSectionCourseForm";
 import { getCourse } from "@/modules/Course/presentation/page-actions/get-course";
+import CreateSectionCourseForm from "@/modules/CourseSection/presentation/components/CreateSectionCourseForm";
 import { getCourseSections } from "@/modules/CourseSection/presentation/page-actions/get-course-sections";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";

@@ -1,4 +1,4 @@
-import { createPurchaseSession } from '@/modules/CoursePurchase/presentation/create-purchase-session';
+import { createPurchaseSession } from '@/modules/CoursePurchase/presentation/actions/create-purchase-session';
 import { currentUser } from '@clerk/nextjs/server';
 import { NextRequest, NextResponse } from 'next/server';
 export const POST = async (req: NextRequest, { params: { courseId } }: { params: { courseId: string } }) => {

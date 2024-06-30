@@ -1,6 +1,6 @@
 import { GetPurchases } from '@/modules/CoursePurchase/application/GetPurchases';
 import { PrismaCoursePurchaseRepository } from '@/modules/CoursePurchase/infrastructure/PrismaCoursePurchaseRepository';
-import { db } from '@/modules/shared/presentation/db';
+import { db } from '@/modules/shared/presentation/connections/db';
 import { GetPurchasedCourses } from '../../application/GetPurchasedCourses';
 import { PrismaCourseRepository } from '../../infrastructure/PrismaCourseRepository';
 

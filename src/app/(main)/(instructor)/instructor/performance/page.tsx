@@ -1,7 +1,7 @@
-import ChartRevenue from "@/components/performance/ChartRevenue"
-import ChartStudents from "@/components/performance/ChartStudents"
-import DataCard from "@/components/performance/DataCard"
-import { getPerformance } from "@/modules/CoursePurchase/presentation/get-performance"
+import ChartRevenue from "@/modules/CoursePurchase/presentation/components/ChartRevenue"
+import ChartStudents from "@/modules/CoursePurchase/presentation/components/ChartStudents"
+import DataCard from "@/modules/CoursePurchase/presentation/components/DataCard"
+import { getPerformance } from "@/modules/CoursePurchase/presentation/page-actions/get-performance"
 import { auth } from "@clerk/nextjs/server"
 import { redirect } from "next/navigation"
 

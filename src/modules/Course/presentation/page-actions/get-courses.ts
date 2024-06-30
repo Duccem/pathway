@@ -1,4 +1,4 @@
-import { db } from '@/modules/shared/presentation/db';
+import { db } from '@/modules/shared/presentation/connections/db';
 import { GetAllMyCourses } from '../../application/GetAllMyCourses';
 import { PrismaCourseRepository } from '../../infrastructure/PrismaCourseRepository';
 

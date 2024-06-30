@@ -1,4 +1,4 @@
-import { db } from '@/lib/db';
+import { db } from '@/modules/shared/presentation/connections/db';
 import { GetSectionResources } from '../../application/GetSectionResources';
 import { PrismaCourseSectionRepository } from '../../infrastructure/PrismaCourseSectionRepository';
 

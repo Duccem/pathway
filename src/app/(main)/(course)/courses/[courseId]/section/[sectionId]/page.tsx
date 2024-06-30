@@ -1,7 +1,6 @@
-import CourseSectionDetail from "@/components/course/CourseSectionDetail";
-import { getUserSectionProgress } from "@/lib/queries/courses";
 import { getCourse } from "@/modules/Course/presentation/page-actions/get-course";
-import { getPurchase } from "@/modules/CoursePurchase/presentation/get-purchase";
+import { getPurchase } from "@/modules/CoursePurchase/presentation/page-actions/get-purchase";
+import CourseSectionDetail from "@/modules/CourseSection/presentation/components/CourseSectionDetail";
 import { getCourseSection } from "@/modules/CourseSection/presentation/page-actions/get-course-section";
 import { getCourseSections } from "@/modules/CourseSection/presentation/page-actions/get-course-sections";
 import { getSectionResources } from "@/modules/CourseSection/presentation/page-actions/get-section-resources";
@@ -25,7 +24,7 @@ const CourseSectionDetailPage = async ({ params }: { params: CourseSectionDetail
   if (!course) {
     return redirect('/');
   }
-  const section = await getCourseSection(courseId, sectionId);
+  const section = await getCourseSection(sectionId, courseId);
   const sections = await getCourseSections(courseId);
   if (!section) {
     return redirect(`/courses/${courseId}/overview`);

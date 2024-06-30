@@ -1,10 +1,11 @@
-import CourseSectionMenu from '@/components/layout/CourseSectionMenu';
-import ReadText from '@/components/shared/ReadText';
-import { Button } from '@/components/ui/button';
-import { getLevel } from '@/lib/queries/levels';
+
+import { Button } from '@/lib/ui/button';
 import { getCourse } from '@/modules/Course/presentation/page-actions/get-course';
+import { getLevel } from '@/modules/Course/presentation/page-actions/get-level';
+import CourseSectionMenu from '@/modules/CourseSection/presentation/components/CourseSectionMenu';
 import { getCourseSections } from '@/modules/CourseSection/presentation/page-actions/get-course-sections';
 import { getSectionVideoData } from '@/modules/CourseSection/presentation/page-actions/get-section-viode-data';
+import ReadText from '@/modules/shared/presentation/components/ReadText';
 import { auth, clerkClient } from '@clerk/nextjs/server';
 import MuxPlayer from '@mux/mux-player-react';
 import { CirclePlay } from 'lucide-react';

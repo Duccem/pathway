@@ -20,8 +20,9 @@ export const POST = async (req: NextRequest) => {
 
 export const GET = async (req: NextRequest) => {
   try {
+    const { userId } = auth();
     const search = req.nextUrl.searchParams.get('search');
-    const courses = await searchCourses(search ? search : '');
+    const courses = await searchCourses(search ? search : '', userId);
     return NextResponse.json(courses, { status: 200 });
   } catch (error) {
     console.log('[COURSE_GET]', error);

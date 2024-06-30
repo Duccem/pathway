@@ -1,6 +1,6 @@
 import { QStashEventBus } from '@/modules/shared/infrastructure/events/QStashEventBus';
-import { db } from '@/modules/shared/presentation/db';
-import qstashClient from '@/modules/shared/presentation/qstash';
+import { db } from '@/modules/shared/presentation/connections/db';
+import qstashClient from '@/modules/shared/presentation/connections/qstash';
 import { UnpublishSection } from '../../application/UnpublishSection';
 import { PrismaCourseSectionRepository } from '../../infrastructure/PrismaCourseSectionRepository';
 

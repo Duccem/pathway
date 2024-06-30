@@ -30,12 +30,13 @@ export class PrismaCourseSectionRepository implements CourseSectionRepository {
         resources: true,
       },
     });
-    const { muxData: videoData, ...rest } = section;
-    return section ? CourseSection.fromPrimitives({ ...rest, videoData }) : null;
+    const { muxData, ...rest } = section;
+    return section ? CourseSection.fromPrimitives({ ...rest, videoData: muxData }) : null;
   }
   async getCoursesSections(courseId: string): Promise<CourseSection[]> {
     const sections = await this.model.findMany({
       where: { courseId },
+      orderBy: { position: 'asc' },
     });
     return sections.map((section) => CourseSection.fromPrimitives(section));
   }
@@ -76,5 +77,17 @@ export class PrismaCourseSectionRepository implements CourseSectionRepository {
   }
   async deleteSection(sectionId: string): Promise<void> {
     await this.model.delete({ where: { id: sectionId } });
+  }
+
+  async reorderSections(section: CourseSection): Promise<void> {
+    console.log('sectionId', section.id);
+    await this.model.update({
+      where: {
+        id: section.id,
+      },
+      data: {
+        position: section.position,
+      },
+    });
   }
 }

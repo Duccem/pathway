@@ -1,9 +1,9 @@
-import { db } from '@/modules/shared/presentation/db';
+import { db } from '@/modules/shared/presentation/connections/db';
 import { CoursesByCategory } from '../../application/CoursesByCategory';
 import { PrismaCourseRepository } from '../../infrastructure/PrismaCourseRepository';
 
-export const getCourseByCategory = async (category: string) => {
+export const getCoursesByCategory = async (category: string, userId: string) => {
   const useCase = new CoursesByCategory(new PrismaCourseRepository(db));
-  const response = await useCase.run(category);
+  const response = await useCase.run(category, userId);
   return response.map((course) => course.toPrimitives());
 };

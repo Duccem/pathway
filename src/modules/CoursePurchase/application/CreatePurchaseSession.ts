@@ -20,6 +20,7 @@ export class CreatePurchaseSession {
     if (!customer) {
       const serviceCustomer = await this.purchaseService.getCustomer(userEmail);
       customer = CoursePurchase.createCustomer(userId, serviceCustomer.id);
+      await this.coursePurchaseRepository.createCustomer(customer);
     }
     const course = await this.courseSearcher.run(courseId, userId);
     const url = await this.purchaseService.createSession(course, customer);

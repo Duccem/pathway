@@ -1,6 +1,6 @@
 import { Primitives } from '@/modules/shared/domain/types/Primitives';
-import { db } from '@/modules/shared/presentation/db';
-import mux from '@/modules/shared/presentation/mux';
+import { db } from '@/modules/shared/presentation/connections/db';
+import mux from '@/modules/shared/presentation/connections/mux';
 import { CourseSection } from '@prisma/client';
 import { UpdateCourseSection } from '../../application/UpdateCourseSection';
 import { MuxVideoStoreService } from '../../infrastructure/MuxVideoStoreService';

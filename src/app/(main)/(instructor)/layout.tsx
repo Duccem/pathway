@@ -1,5 +1,5 @@
-import Sidebar from "@/components/layout/Sidebar";
-import BackButton from "@/components/shared/BackButton";
+import BackButton from "@/modules/shared/presentation/components/BackButton";
+import Sidebar from "@/modules/shared/presentation/components/layout/Sidebar";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 const InstructorLayout = ({ children }: { children: React.ReactNode }) => {

@@ -28,19 +28,20 @@ export class PrismaCourseRepository implements CourseRepository {
     });
     return course ? Course.fromPrimitives(course) : null;
   }
-  async getCoursesByCategory(categoryId: string): Promise<Course[]> {
+  async getCoursesByCategory(categoryId: string, userId: string): Promise<Course[]> {
     let whereClause: any = categoryId ? { categoryId } : {};
     const courses = await this.model.findMany({
-      where: whereClause,
+      where: { isPublished: true, instructorId: { not: userId }, ...whereClause },
       orderBy: {
         createdAt: 'desc',
       },
     });
     return courses ? courses.map((course) => Course.fromPrimitives(course)) : [];
   }
-  async searchCourses(query: string): Promise<Course[]> {
+  async searchCourses(query: string, userId: string): Promise<Course[]> {
     const courses = await this.model.findMany({
       where: {
+        instructorId: { not: userId },
         OR: [
           {
             title: {
@@ -68,11 +69,21 @@ export class PrismaCourseRepository implements CourseRepository {
     await this.model.upsert({
       where: { id: course.id },
       update: courseData,
-      create: courseData,
+      create: {
+        id: courseData.id,
+        title: courseData.title,
+        categoryId: courseData.categoryId,
+        subCategoryId: courseData.subCategoryId,
+        instructorId: courseData.instructorId,
+      },
     });
   }
   async getCourseCategories(): Promise<Category[]> {
-    const categories = await this.client.category.findMany();
+    const categories = await this.client.category.findMany({
+      include: {
+        subcategories: true,
+      },
+    });
     return categories ? categories.map((category) => Category.fromPrimitives(category)) : [];
   }
 
@@ -94,5 +105,12 @@ export class PrismaCourseRepository implements CourseRepository {
     await this.model.delete({
       where: { id: courseId },
     });
+  }
+
+  async getLevelById(levelId: string): Promise<Level> {
+    const level = await this.client.level.findUnique({
+      where: { id: levelId },
+    });
+    return level ? Level.fromPrimitives(level) : null;
   }
 }

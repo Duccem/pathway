@@ -1,4 +1,4 @@
-import { completePurchaseSession } from '@/modules/CoursePurchase/presentation/complete-purchase-session';
+import { completePurchaseSession } from '@/modules/CoursePurchase/presentation/actions/complete-purchase-session';
 import { headers } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 

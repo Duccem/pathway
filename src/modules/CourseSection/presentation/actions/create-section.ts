@@ -1,4 +1,4 @@
-import { db } from '@/modules/shared/presentation/db';
+import { db } from '@/modules/shared/presentation/connections/db';
 import { CreateSection } from '../../application/CreateSection';
 import { PrismaCourseSectionRepository } from '../../infrastructure/PrismaCourseSectionRepository';
 

@@ -1,4 +1,4 @@
-import { db } from '@/modules/shared/presentation/db';
+import { db } from '@/modules/shared/presentation/connections/db';
 import { ToggleCourseSectionProgress } from '../application/CreateCourseSectionProgress';
 import { PrismaCourseSectionProgressRepository } from '../infrastructure/PrismaCourseSectionProgressRepository';
 

@@ -1,4 +1,5 @@
-import CourseSideBar from '@/components/layout/CourseSideBar';
+
+import CourseSideBar from '@/modules/Course/presentation/components/course/CourseSideBar';
 import { getCourse } from '@/modules/Course/presentation/page-actions/get-course';
 import { getCourseSections } from '@/modules/CourseSection/presentation/page-actions/get-course-sections';
 import { auth } from '@clerk/nextjs/server';

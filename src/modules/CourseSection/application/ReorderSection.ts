@@ -8,7 +8,7 @@ export class ReorderSection {
     const sections = list.map((data) => CourseSection.fromPrimitives(data));
     const updatePromises = [];
     for (const section of sections) {
-      updatePromises.push(this.repository.saveSection(section));
+      updatePromises.push(this.repository.reorderSections(section));
     }
     await Promise.all(updatePromises);
   }

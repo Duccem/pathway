@@ -1,4 +1,4 @@
-import CreateCourseForm from "@/components/course/CreateCourseForm";
+import CreateCourseForm from "@/modules/Course/presentation/components/course/CreateCourseForm";
 import { getCategories } from "@/modules/Course/presentation/page-actions/get-categories";
 
 const CreateCoursePage = async () => {
@@ -8,7 +8,7 @@ const CreateCoursePage = async () => {
       <CreateCourseForm categories={categories.map((category) => ({ 
         label: category.name, 
         value: category.id,
-        subcategories: category.subCategories.map((subcategory) => ({
+        subcategories: category.subcategories.map((subcategory) => ({
           label: subcategory.name,
           value: subcategory.id
         }))

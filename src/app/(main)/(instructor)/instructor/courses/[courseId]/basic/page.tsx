@@ -1,9 +1,9 @@
-import EditCourseForm from '@/components/course/EditCourseForm';
-import IncompleteBanner from '@/components/course/IncompleteBanner';
+import EditCourseForm from '@/modules/Course/presentation/components/course/EditCourseForm';
 import { getCategories } from '@/modules/Course/presentation/page-actions/get-categories';
 import { getCourse } from '@/modules/Course/presentation/page-actions/get-course';
 import { getLevels } from '@/modules/Course/presentation/page-actions/get-levels';
 import { getCourseSections } from '@/modules/CourseSection/presentation/page-actions/get-course-sections';
+import IncompleteBanner from '@/modules/shared/presentation/components/IncompleteBanner';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 
@@ -42,7 +42,7 @@ const CourseBasicPage = async ({ params: { courseId } }: CourseBasicPageParams) 
         categories={categories.map((category) => ({
           label: category.name,
           value: category.id,
-          subcategories: category.subCategories.map((subcategory) => ({
+          subcategories: category.subcategories.map((subcategory) => ({
             label: subcategory.name,
             value: subcategory.id
           }))
