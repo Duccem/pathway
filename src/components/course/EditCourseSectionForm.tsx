@@ -1,21 +1,21 @@
 'use client'
+import { Switch } from "@/components/ui/switch";
+import FilePicker from "@/modules/CourseSection/components/file-picker";
+import { zodResolver } from "@hookform/resolvers/zod";
+import MuxPlayer from "@mux/mux-player-react";
+import { CourseSection, CourseSectionResource, MuxData } from "@prisma/client";
+import axios from "axios";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { z } from "zod";
 import { Button } from "../ui/button";
-import { ArrowLeft, Loader2, Trash } from "lucide-react";
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { RichEditor } from "../ui/rich-editor";
-import FilePicker from "../ui/file-picker";
-import { Switch } from "@/components/ui/switch"
-import { z } from "zod";
-import { usePathname, useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { CourseSection, CourseSectionResource, MuxData } from "@prisma/client";
 import CourseSectionResourceForm from "./CourseSectionResourceForm";
-import toast from "react-hot-toast";
-import axios from "axios";
-import MuxPlayer from "@mux/mux-player-react";
 import DeleteCourse from "./DeleteCourse";
 import PublishButton from "./PublishButton";
 

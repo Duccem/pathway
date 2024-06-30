@@ -1,7 +1,7 @@
 'use client'
-import { ourFileRouter } from "@/app/api/uploadthing/core";
-import { UploadDropzone } from "@/lib/uploadthing";
 import toast from "react-hot-toast";
+import { ourFileRouter } from "../infrastructure/UploadThingCore";
+import { UploadDropzone } from "./uploadthing";
 
 interface FilePickerProps {
   value: string;

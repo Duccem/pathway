@@ -1,15 +1,15 @@
+import FilePicker from "@/modules/CourseSection/components/file-picker";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CourseSection, CourseSectionResource } from "@prisma/client";
+import axios from "axios";
+import { File, Loader2, PlusCircle, X } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 import { Button } from "../ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
-import FilePicker from "../ui/file-picker";
 import { Input } from "../ui/input";
-import { File, Loader2, PlusCircle, X } from "lucide-react";
-import toast from "react-hot-toast";
-import axios from "axios";
-import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),

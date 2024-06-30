@@ -1,26 +1,25 @@
 'use client';
-import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { Combobox } from "../ui/combobox";
+  FormMessage
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import FilePicker from "@/modules/CourseSection/components/file-picker";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Course } from "@prisma/client";
+import axios from "axios";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { z } from "zod";
 import { Button } from "../ui/button";
+import { Combobox } from "../ui/combobox";
 import { RichEditor } from "../ui/rich-editor";
-import FilePicker from "../ui/file-picker";
-import Link from "next/link";
-import axios from "axios";
-import { usePathname, useRouter } from "next/navigation";
-import toast from "react-hot-toast";
-import { Trash } from "lucide-react";
 import DeleteCourse from "./DeleteCourse";
 import PublishButton from "./PublishButton";
 
