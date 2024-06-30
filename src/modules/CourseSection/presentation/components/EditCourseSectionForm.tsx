@@ -1,13 +1,13 @@
 'use client'
 import { Switch } from "@/lib/ui/switch";
-import FilePicker from "@/modules/CourseSection/presentation/components/file-picker";
 import { zodResolver } from "@hookform/resolvers/zod";
-import MuxPlayer from "@mux/mux-player-react";
 import { CourseSection, CourseSectionResource, MuxData } from "@prisma/client";
+import { upload } from "@vercel/blob/client";
 import axios from "axios";
 import { ArrowLeft, Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { z } from "zod";
@@ -18,6 +18,7 @@ import { RichEditor } from "../../../../lib/ui/rich-editor";
 import DeleteButton from "../../../shared/presentation/components/DeleteCourse";
 import PublishButton from "../../../shared/presentation/components/PublishButton";
 import CourseSectionResourceForm from "./CourseSectionResourceForm";
+import VideoSectionPicker from "./VideoSectionPicker";
 
 const editCourseSectionForm = z.object({
   title: z.string().min(2, { message: 'Title is required and minimum 2 characters' }),
@@ -34,6 +35,7 @@ interface EditCourseSectionFormProps {
 
 const EditCourseSectionForm = ({ section, courseId, isComplete }: EditCourseSectionFormProps) => {
   const router = useRouter();
+  const [sectionVideoFile, setSectionVideoFile] = useState<File>(null);
   const form = useForm<z.infer<typeof editCourseSectionForm>>({
     resolver: zodResolver(editCourseSectionForm),
     defaultValues: {
@@ -44,9 +46,21 @@ const EditCourseSectionForm = ({ section, courseId, isComplete }: EditCourseSect
     }
   });
 
+  const uploadVideo = async () => {
+    const newVideoFile = await upload(sectionVideoFile.name, sectionVideoFile, {
+      access: 'public',
+      handleUploadUrl: `/api/course/${courseId}/section/${section.id}/upload-video`,
+    })
+    return newVideoFile.url;
+  }
+
   const onSubmit = async (values: z.infer<typeof editCourseSectionForm>) => {
     try {
-      await axios.put(`/api/course/${courseId}/section/${section.id}`, values);
+      let videoUrl = values.videoUrl;
+      if(section.videoUrl !== values.videoUrl) {
+        videoUrl = await uploadVideo();
+      }
+      await axios.put(`/api/course/${courseId}/section/${section.id}`, {...values, videoUrl });
       toast.success('Section updated successfully');
       router.refresh();
     } catch (error) {
@@ -104,21 +118,15 @@ const EditCourseSectionForm = ({ section, courseId, isComplete }: EditCourseSect
               </FormItem>
             )}
           />
-          {
-            section.videoUrl && (
-              <div className="my-5">
-                <MuxPlayer playbackId={section.muxData?.playbackId} className="md:max-w-[600px]"/>
-              </div>
-            )
-          }
+         
           <FormField
             control={form.control}
             name="videoUrl"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>Video <span className="text-red-500">*</span></FormLabel>
+                <FormLabel><strong className="text-lg">Video</strong> <span className="text-red-500">*</span></FormLabel>
                 <FormControl>
-                  <FilePicker page="edit-section" value={field.value || ''} onChange={(url) => field.onChange(url)} endpoint="sectionVideo" />
+                  <VideoSectionPicker value={field.value || ''}  onChange={(url) => field.onChange(url)} onSelectFile={(file: File) => setSectionVideoFile(file)}/>
                 </FormControl>
                 <FormMessage />
               </FormItem>
