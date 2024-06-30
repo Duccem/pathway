@@ -31,7 +31,7 @@ export class PrismaCourseRepository implements CourseRepository {
   async getCoursesByCategory(categoryId: string, userId: string): Promise<Course[]> {
     let whereClause: any = categoryId ? { categoryId } : {};
     const courses = await this.model.findMany({
-      where: { isPublished: true, instructorId: { not: userId }, ...whereClause },
+      where: { isPublished: true, NOT: { instructorId: userId }, ...whereClause },
       orderBy: {
         createdAt: 'desc',
       },
@@ -41,7 +41,7 @@ export class PrismaCourseRepository implements CourseRepository {
   async searchCourses(query: string, userId: string): Promise<Course[]> {
     const courses = await this.model.findMany({
       where: {
-        instructorId: { not: userId },
+        NOT: { instructorId: userId },
         OR: [
           {
             title: {
