@@ -1,12 +1,10 @@
 'use client'
-import dynamic from 'next/dynamic';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
-import React from 'react';
 interface ReadTextProps {
   value: string;
 }
 const ReadText = ({ value }: ReadTextProps) => {
-  const ReactQuill = React.useMemo(() => dynamic(() => import('react-quill'), { ssr: false }), []);
   return (
     <div>
       <ReactQuill

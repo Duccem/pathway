@@ -96,14 +96,12 @@ export class Course extends Aggregate {
   }
 
   updateCourse(data: Primitives<Course>) {
-    this.title = data.title;
-    this.subtitle = data.subtitle;
-    this.description = data.description;
-    this.price = data.price;
-    this.imageUrl = data.imageUrl;
-    this.categoryId = data.categoryId;
-    this.subCategoryId = data.subCategoryId;
-    this.levelId = data.levelId;
+    const updatedData = {
+      ...this.toPrimitives(),
+      ...data,
+    };
+
+    return Course.fromPrimitives(updatedData);
   }
 
   deleteCourse() {

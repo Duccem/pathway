@@ -1,3 +1,4 @@
+'use client'
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";

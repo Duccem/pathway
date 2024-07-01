@@ -7,7 +7,7 @@ export class UpdateCourse {
 
   async run(courseId: string, userId: string, data: Primitives<Course>): Promise<void> {
     const course = await this.repository.getCourseById(courseId, userId);
-    course.updateCourse(data);
-    await this.repository.saveCourse(course);
+    const courseUpdated = course.updateCourse(data);
+    await this.repository.saveCourse(courseUpdated);
   }
 }

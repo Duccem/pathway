@@ -7,6 +7,10 @@ html, body, :root {
 }
 @layer base {
   :root {
+    --ducen-primary: #8167EC;
+    --ducen-primary-foreground: #fff;
+    --ducen-secondary: #dfcbfa;
+    --ducen-secondary-foreground: #8167EC;
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 

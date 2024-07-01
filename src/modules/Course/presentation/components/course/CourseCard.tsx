@@ -54,26 +54,21 @@ const CourseCard = async ({ course, studentId }: CourseCardProps) => {
 
           {level && (
             <div>
-              <Badge className='bg-[#22a094]'>{level.name}</Badge>
+              <Badge className="bg-[#22a094]">{level.name}</Badge>
             </div>
           )}
         </div>
 
-        {
-          !purchase && (
-            <p className="text-sm font-bold">${course.price}</p>
-          )
-        }
-        <div className="flex items-center justify-start gap-3">
-          <div className="p-2 flex justify-center items-center rounded-full bg-[#dfcbfa]">
-            <BookOpen className="h-3 w-3" />
-          </div>
-          <p className='text-sm font-bold'>{publishedSections.length} chapters</p>
+        <div className="flex items-center justify-start gap-3 rounded-md bg-[#dfcbfa] px-3 mr-auto text-[#9747FF]">
+          <BookOpen className="h-3 w-3" />
+          <p className="text-sm font-bold">{publishedSections.length} chapters</p>
         </div>
-        {purchase && (
+        {!purchase ? (
+          <p className="text-sm font-bold">${course.price}</p>
+        ) : (
           <div className="">
             <Progress value={progressPercentage} className="h-2 " />
-            <p className="text-xs mt-2 text-[#22a094]">
+            <p className="text-xs mt-2 text-[#9747FF]">
               %{progressPercentage} <span className="font-bold">completed</span>
             </p>
           </div>

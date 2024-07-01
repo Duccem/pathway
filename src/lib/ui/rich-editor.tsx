@@ -1,5 +1,5 @@
-import dynamic from 'next/dynamic';
 import * as React from 'react';
+import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 interface RichEditorProps {
   placeholder: string;
@@ -8,7 +8,6 @@ interface RichEditorProps {
 }
 export const RichEditor = React.forwardRef<any, RichEditorProps>(
   ({ placeholder, onChange, value }, ref) => {
-    const ReactQuill = React.useMemo(() => dynamic(()=> import('react-quill'), { ssr: false }), []);
     return (
       <div>
         <ReactQuill
