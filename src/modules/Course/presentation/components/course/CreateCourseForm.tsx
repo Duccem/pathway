@@ -50,7 +50,7 @@ const CreateCourseForm = ({ categories }: CreateCourseFormProps) => {
     try {
       const newId = Uuid.random().value;
       await axios.post('/api/course', {id: newId, ...values});
-      router.push(`/instructor/courses/${newId}/basic`);
+      router.push(`/instructor/courses/${newId}`);
       toast.success('Course created successfully');
     } catch (error) {
       console.log('Failed to create course', error);

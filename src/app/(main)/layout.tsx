@@ -1,6 +1,6 @@
 import TopBar from '@/modules/shared/presentation/components/layout/TopBar';
 import React from 'react';
-const HomeLayout = ({ children }:{ children: React.ReactNode }) => {
+const MainLayout = ({ children }:{ children: React.ReactNode }) => {
   return (
     <>
       <TopBar/>
@@ -9,4 +9,4 @@ const HomeLayout = ({ children }:{ children: React.ReactNode }) => {
   );
 }
 
-export default HomeLayout;
+export default MainLayout;

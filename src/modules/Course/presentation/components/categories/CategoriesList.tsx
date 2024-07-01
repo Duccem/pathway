@@ -15,8 +15,7 @@ const CategoriesList = ({ categories, selectedCategory }: CategoriesListProps) =
   const search = searchParams.get('search')
   
   const onClick = (categoryId: string | null) => {
-    if(search) router.push(`/?search=${search}&categoryId=${categoryId}`);
-    else router.push(categoryId ? `/?categoryId=${categoryId}` : "/");
+    router.push(categoryId ? `/browse/?categoryId=${categoryId}` : "/browse");
   };
   useEffect(() => {
     onClick(selected);

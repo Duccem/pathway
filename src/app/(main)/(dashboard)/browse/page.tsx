@@ -6,12 +6,12 @@ import { getCoursesByCategory } from "@/modules/Course/presentation/page-actions
 import { auth } from "@clerk/nextjs/server";
 
 
-export default async function Home({ searchParams }: { searchParams: { categoryId: string | null}} ) {
+export default async function Browse({ searchParams }: { searchParams: { categoryId: string | null}} ) {
   const { userId } = auth();
   const categories = await getCategories();
   const courses = await getCoursesByCategory(searchParams.categoryId || null, userId);
   return (
-    <div>
+    <div className="px-4 py-6 md:mt-5 md:px-10 xl:px-16">
       <CategoriesList categories={categories} selectedCategory={searchParams.categoryId || null}/>
       <div className="flex flex-wrap gap-7 justify-center">
         {

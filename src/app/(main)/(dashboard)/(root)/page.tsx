@@ -1,9 +1,11 @@
-import CourseCard from "@/modules/Course/presentation/components/course/CourseCard"
-import { getPurchasedCourses } from "@/modules/Course/presentation/page-actions/get-purchased-courses"
-import { auth } from "@clerk/nextjs/server"
-import { redirect } from "next/navigation"
 
-const LearningPage = async () => {
+import CourseCard from "@/modules/Course/presentation/components/course/CourseCard";
+import { getPurchasedCourses } from "@/modules/Course/presentation/page-actions/get-purchased-courses";
+import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
+
+
+export default async function Home( ) {
   const { userId } = auth()
 
   if (!userId) {
@@ -25,5 +27,3 @@ const LearningPage = async () => {
     </div>
   )
 }
-
-export default LearningPage

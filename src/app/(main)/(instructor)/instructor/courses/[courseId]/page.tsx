@@ -16,7 +16,7 @@ import PublishButton from '@/modules/shared/presentation/components/PublishButto
 import { auth } from '@clerk/nextjs/server';
 import { BookText, CircleDollarSign, Gem, ListChecks } from 'lucide-react';
 import { redirect } from 'next/navigation';
-import IncompleteBanner from '../../../../_components/custom/IncompleteBanner';
+import IncompleteBanner from '../../../_components/custom/IncompleteBanner';
 
 interface CourseBasicPageParams {
   params: {

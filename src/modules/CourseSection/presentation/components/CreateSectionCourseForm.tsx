@@ -25,7 +25,7 @@ const CreateSectionCourseForm = ({ course }: CreateSectionCourseFormProps) => {
   const router = useRouter();
   const pathName = usePathname();
   const routes = [
-    { label: 'Basic Information', path: `/instructor/courses/${course.id}/basic` },
+    { label: 'Basic Information', path: `/instructor/courses/${course.id}` },
     { label: 'Curriculum', path: `/instructor/courses/${course.id}/sections` },
   ]
   const form = useForm<z.infer<typeof createSectionCourseSchema>>({
@@ -94,7 +94,7 @@ const CreateSectionCourseForm = ({ course }: CreateSectionCourseFormProps) => {
             )}
           />
           <div className="flex gap-5">
-            <Link href={`/instructor/courses/${course.id}/basic`}>
+            <Link href={`/instructor/courses/${course.id}`}>
               <Button variant='outline' type='button'>Cancel</Button>
             </Link>
             <Button type="submit">Create</Button>

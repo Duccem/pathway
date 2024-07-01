@@ -78,7 +78,7 @@ export const CourseTableColumns: ColumnDef<Course>[] = [
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <Link
-                href={`/instructor/courses/${row.original.id}/basic`}
+                href={`/instructor/courses/${row.original.id}`}
                 className="flex gap-2 text-center hover:text-[#9747FF]"
               >
                 <Pencil className="h-4 w-4" />

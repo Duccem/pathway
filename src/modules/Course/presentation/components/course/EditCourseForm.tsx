@@ -78,7 +78,7 @@ const EditCourseForm = ({ course, categories, levels, isComplete }: EditCourseFo
   }
 
   const routes = [
-    { label: 'Basic Information', path: `/instructor/courses/${course.id}/basic` },
+    { label: 'Basic Information', path: `/instructor/courses/${course.id}` },
     { label: 'Curriculum', path: `/instructor/courses/${course.id}/sections` },
   ]
 
