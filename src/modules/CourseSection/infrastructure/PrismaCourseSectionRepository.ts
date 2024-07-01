@@ -52,7 +52,11 @@ export class PrismaCourseSectionRepository implements CourseSectionRepository {
     await this.model.upsert({
       where: { id: section.id },
       update: sectionData,
-      create: sectionData,
+      create: {
+        title: sectionData.title,
+        courseId: sectionData.courseId,
+        position: sectionData.position,
+      },
     });
   }
   async addResource(resource: CourseSectionResource): Promise<void> {

@@ -25,7 +25,7 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={inter.className} suppressHydrationWarning={true}>
+        <body className={inter.className} suppressHydrationWarning={true} >
           <NextTopLoader 
             color="#9747FF"
             height={5}

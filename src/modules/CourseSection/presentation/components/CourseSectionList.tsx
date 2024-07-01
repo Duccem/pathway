@@ -1,7 +1,8 @@
+import { Badge } from '@/lib/ui/badge';
+import { DragDropContext, Draggable, DropResult, Droppable } from '@hello-pangea/dnd';
 import { CourseSection } from "@prisma/client";
-import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd'
-import { useEffect, useState } from "react";
 import { Grip, Pencil } from "lucide-react";
+import { useEffect, useState } from "react";
 
 interface CourseSectionListProps {
   items: CourseSection[];
@@ -44,18 +45,20 @@ const CourseSectionList = ({ items, onReorder, onEdit }: CourseSectionListProps)
     <DragDropContext onDragEnd={onDragEnd}>
       <Droppable droppableId="sections">
         {(provided) => (
-          <div className={`${sections.length > 0 ? 'my-10' : 'mt-7'} flex flex-col gap-5`} {...provided.droppableProps} ref={provided.innerRef}>
+          <div className={`${sections.length > 0 ? 'my-10' : 'mt-7'} flex flex-col gap-5 max-h-[300px] overflow-y-scroll no-scrollbar`} {...provided.droppableProps} ref={provided.innerRef}>
             {
               sections.map((section, index) => (
                 <Draggable key={section.id} draggableId={section.id} index={index}>
                   {(provided) => (
-                    <div className="flex items-center bg-[#dfcbfa] rounded-lg text-sm font-medium p-3" {...provided.draggableProps} ref={provided.innerRef}>
+                    <div className="flex items-center bg-[#9747FF] rounded-lg text-sm font-medium p-3" {...provided.draggableProps} ref={provided.innerRef}>
                       <div {...provided.dragHandleProps}>
-                        <Grip className="h-4 w-4 cursor-pointer mr-4 hover:text-[#9747FF]"/>
+                        <Grip className="h-4 w-4 cursor-pointer mr-4 "/>
                       </div>
                       {section.title}
-                      <div className="ml-auto">
-                        <Pencil className="h-4 w-4 cursor-pointer hover:text-[#9747FF]"
+                      <div className="ml-auto flex justify-end items-center gap-x-3">
+                        { section.isFree ? <Badge className='bg-[#22a094]'>Free</Badge> : null }
+                        { section.isPublished ? <Badge className='bg-[#22a094]'>Published</Badge> : <Badge>Draft</Badge>}
+                        <Pencil className="h-4 w-4 cursor-pointer "
                           onClick={() => onEdit(section.id)}
                         />
                       </div>

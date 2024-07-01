@@ -68,7 +68,7 @@ const CourseCard = async ({ course, studentId }: CourseCardProps) => {
         ) : (
           <div className="">
             <Progress value={progressPercentage} className="h-2 " />
-            <p className="text-xs mt-2 text-[#9747FF]">
+            <p className="text-xs mt-2 text-[#22a094]">
               %{progressPercentage} <span className="font-bold">completed</span>
             </p>
           </div>

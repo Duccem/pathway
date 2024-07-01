@@ -14,7 +14,7 @@ const Sidebar = () => {
       {
         sidebarRoutes.map((route)=>(
           <Link href={route.path} key={route.path}
-            className={`flex items-center gap-4 p-3 rounded-lg hover:bg-[#dfcbfa] ${pathName.startsWith(route.path) ? 'bg-[#9747FF]' : ''}`}
+            className={`flex items-center gap-4 p-3 rounded-lg hover:bg-[#dfcbfa] ${pathName.startsWith(route.path) ? 'text-[#9747FF]' : ''}`}
           >
             {route.icon} {route.label}
           </Link>

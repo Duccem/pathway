@@ -9,7 +9,7 @@ html, body, :root {
   :root {
     --ducen-primary: #8167EC;
     --ducen-primary-foreground: #fff;
-    --ducen-secondary: #dfcbfa;
+    --ducen-secondary: #ede4f8;
     --ducen-secondary-foreground: #8167EC;
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -100,4 +100,8 @@ html, body, :root {
 }
 .ql-container {
   font-family: '__Nunito_14f33d', '__Nunito_Fallback_14f33d' !important;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
