@@ -1,6 +1,7 @@
+'use client'
 import { Button } from '@/lib/ui/button';
 import axios from 'axios';
-import { Loader2 } from 'lucide-react';
+import { CircleDollarSign, Loader2 } from 'lucide-react';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -20,7 +21,7 @@ const PurchaseCourse = ({ courseId }: { courseId: string }) => {
   }
   return (
     <Button onClick={handlePurchase}>
-      { loading ? <Loader2 className='h-4 w-4 animate-spin'/> : <p>Buy course</p>}
+      { loading ? <Loader2 className='h-4 w-4 animate-spin'/> : <p className='flex justify-start items-center'> <CircleDollarSign className="h-4 w-4 mr-2" /> Buy course</p>}
     </Button>
   );
 }

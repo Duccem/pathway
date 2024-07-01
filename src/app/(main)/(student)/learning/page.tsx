@@ -19,7 +19,7 @@ const LearningPage = async () => {
       </h1>
       <div className="flex flex-wrap gap-7 mt-7 max-sm:justify-center">
         {purchasedCourses.map((course) => (
-          <CourseCard key={course.id} course={course} />
+          <CourseCard key={course.id} course={course} studentId={userId}/>
         ))}
       </div>
     </div>

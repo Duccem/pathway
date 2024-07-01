@@ -34,8 +34,11 @@ export class PrismaCourseSectionProgressRepository implements CourseSectionProgr
     });
     return progress ? CourseSectionProgress.fromPrimitives(progress) : null;
   }
-  async countCompletedSectionsProgress(studentId: string, sectionIds: string[]): Promise<number> {
-    const count = await this.model.count({
+  async countCompletedSectionsProgress(
+    studentId: string,
+    sectionIds: string[]
+  ): Promise<CourseSectionProgress[]> {
+    const count = await this.model.findMany({
       where: {
         studentId,
         sectionId: {
@@ -44,6 +47,6 @@ export class PrismaCourseSectionProgressRepository implements CourseSectionProgr
         isCompleted: true,
       },
     });
-    return count;
+    return count.map((progress) => CourseSectionProgress.fromPrimitives(progress));
   }
 }

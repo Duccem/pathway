@@ -20,7 +20,7 @@ export class PrismaCoursePurchaseRepository implements CoursePurchaseRepository 
   async getCustomer(userId: string): Promise<Customer> {
     const customer = await this.client.stripeCustomer.findUnique({
       where: {
-        id: userId,
+        customerId: userId,
       },
     });
     return customer ? Customer.fromPrimitives(customer) : null;

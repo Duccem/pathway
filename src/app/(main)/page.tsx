@@ -16,7 +16,7 @@ export default async function Home({ searchParams }: { searchParams: { categoryI
       <div className="flex flex-wrap gap-7 justify-center">
         {
           courses.map((course) => (
-            <CourseCard key={course.id} course={course}/>
+            <CourseCard key={course.id} course={course} studentId={userId}/>
           ))
         }
       </div>

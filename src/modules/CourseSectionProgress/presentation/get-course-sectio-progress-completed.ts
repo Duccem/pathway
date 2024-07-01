@@ -5,5 +5,8 @@ import { PrismaCourseSectionProgressRepository } from '../infrastructure/PrismaC
 export const getCourseSectionProgressCompletedCount = async (courseId: string, sectionsIds: string[]) => {
   const useCase = new GetCourseSectionProgressCompletedCount(new PrismaCourseSectionProgressRepository(db));
   const response = await useCase.run(courseId, sectionsIds);
-  return response;
+  return {
+    count: response.length,
+    sectionsIds: response.map((section) => section.sectionId),
+  };
 };

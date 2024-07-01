@@ -1,6 +1,6 @@
 import { Button } from "@/lib/ui/button";
 import axios from "axios";
-import { CheckCircle, Loader2 } from "lucide-react";
+import { CheckCircle, Loader2, PlayCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -32,7 +32,12 @@ const CompleteCourseSection = ({ courseId, sectionId, isCompleted }: CompleteCou
           <CheckCircle className="h-4 w-4 mr-2"/>
           <span >Completed</span>
         </div>
-      ) : 'Mark as complete'}
+      ) : (
+        <div className="flex items-center">
+          <PlayCircle className="h-4 w-4 mr-2"/>
+          <span >Complete</span>
+        </div>
+      )}
     </Button>
   );
 }

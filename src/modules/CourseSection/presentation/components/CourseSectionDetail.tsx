@@ -1,6 +1,5 @@
 'use client';
 import PurchaseCourse from '@/modules/Course/presentation/components/course/PurchaseCourse';
-import MuxPlayer from '@mux/mux-player-react';
 import {
   Course,
   CoursePurchase,
@@ -27,7 +26,6 @@ const CourseSectionDetail = ({
   course,
   section,
   purchase,
-  muxData,
   resources,
   progress,
 }: SectionsDetailsProps) => {
@@ -37,14 +35,8 @@ const CourseSectionDetail = ({
       <div className="flex flex-col md:flex-row md:justify-between md:items-center">
         <div className="flex gap-4">
           <CourseSectionMenu course={course} />
-          {!purchase ? (
+          {!purchase && (
             <PurchaseCourse courseId={course.id} />
-          ) : (
-            <CompleteCourseSection
-              courseId={course.id}
-              sectionId={section.id}
-              isCompleted={!!progress?.isCompleted}
-            />
           )}
         </div>
       </div>
@@ -61,15 +53,27 @@ const CourseSectionDetail = ({
             </div>
           ) : (
             <div className="px-10 py-10 flex flex-col gap-5 items-start justify-start">
-              <MuxPlayer
-                playbackId={muxData?.playbackId || ''}
-                className="md:max-w-[600px] border-2 rounded-lg border-[#9747FF]"
+              <video
+                src={section.videoUrl || ''}
+                className="md:max-w-[600px] rounded-lg"
+                controls
               />
+              {
+                purchase && (
+                  <CompleteCourseSection
+                    courseId={course.id}
+                    sectionId={section.id}
+                    isCompleted={!!progress?.isCompleted}
+                  />
+                )
+              }
             </div>
           )}
-          <ReadText
-            value={section.description || 'Description not available'}
-          />
+          <div className='px-7'>
+            <ReadText
+              value={section.description || 'Description not available'}
+            />
+          </div>
         </div>
         <div className="flex-1">
           <h2 className="text-xl font-bold mb-5">Resources</h2>
