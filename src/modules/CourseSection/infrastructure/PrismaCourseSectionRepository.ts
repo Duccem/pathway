@@ -70,6 +70,7 @@ export class PrismaCourseSectionRepository implements CourseSectionRepository {
     });
   }
   async removeResource(resourceId: string, sectionId: string): Promise<void> {
+    console.log('resourceId', resourceId, 'sectionId', sectionId);
     await this.client.courseSectionResource.delete({
       where: { id: resourceId, sectionId },
     });

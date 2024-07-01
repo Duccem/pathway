@@ -83,10 +83,12 @@ export class CourseSection extends Aggregate {
   }
 
   updateData(data: Primitives<CourseSection>) {
-    this.title = data.title;
-    this.description = data.description;
-    this.videoUrl = data.videoUrl;
-    this.isFree = data.isFree;
+    const newData = {
+      ...this.toPrimitives(),
+      ...data,
+    };
+
+    return CourseSection.fromPrimitives(newData);
   }
 
   createVideoData(assetId: string, playbackId: string) {

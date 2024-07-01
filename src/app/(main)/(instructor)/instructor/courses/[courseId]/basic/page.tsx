@@ -63,11 +63,13 @@ const CourseBasicPage = async ({ params: { courseId } }: CourseBasicPageParams) 
           <h1 className="text-2xl font-medium">Course setup</h1>
         </div>
       </div>
-      <IncompleteBanner
-        completeFieldsCount={completedFieldsCount}
-        isCompleted={isComplete}
-        requiredFieldsCount={requiredFieldsCount}
-      ></IncompleteBanner>
+      {!course.isPublished && (
+        <IncompleteBanner
+          completeFieldsCount={completedFieldsCount}
+          isCompleted={isComplete}
+          requiredFieldsCount={requiredFieldsCount}
+        ></IncompleteBanner>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
         <div>
           <div className="flex items-center justify-start gap-x-2">

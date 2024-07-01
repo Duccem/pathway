@@ -12,7 +12,6 @@ export const PUT = async (
     if (!userId) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
-
     await updateSection(courseId, sectionId, values);
     return NextResponse.json({ message: 'Section created' }, { status: 200 });
   } catch (error) {

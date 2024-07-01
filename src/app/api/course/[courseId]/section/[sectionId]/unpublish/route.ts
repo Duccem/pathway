@@ -14,7 +14,6 @@ export const POST = async (
     }
 
     const { courseId, sectionId } = params;
-
     await unpublishSection(courseId, sectionId, userId);
 
     return NextResponse.json({ message: 'Section unpublished' }, { status: 200 });
