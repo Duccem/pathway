@@ -15,6 +15,7 @@ interface CourseCardProps {
   studentId: string;
 }
 const CourseCard = async ({ course, studentId }: CourseCardProps) => {
+  console.log(course.instructorId);
   const instructor = await clerkClient.users.getUser(course.instructorId);
   let level;
   if (course.levelId) {
@@ -24,11 +25,11 @@ const CourseCard = async ({ course, studentId }: CourseCardProps) => {
   const sections = await getCourseSections(course.id);
   const publishedSections = sections.filter((section) => section.isPublished);
   const publishedSectionsIds = publishedSections.map((section) => section.id);
-  const { count: completedSections, sectionsIds: completedSectionsIds } =
+  const { count: completedSections } =
     await getCourseSectionProgressCompletedCount(studentId, publishedSectionsIds);
   const progressPercentage = Math.round((completedSections / publishedSections.length) * 100);
   return (
-    <Link href={`/courses/${course.id}/overview`} className="border rounded-lg cursor-pointer">
+    <Link href={`/courses/${course.id}/overview`} className="border rounded-lg cursor-pointe">
       <img
         src={course.imageUrl ? course.imageUrl : '/images/image_placeholder.webp'}
         alt={course.title}

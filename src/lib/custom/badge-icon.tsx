@@ -8,11 +8,8 @@ const backgroundVariants = cva(
     variants: {
       variant: {
         default: "bg-[#dfcbfa]",
-        success: "bg-[#22a094]",
-      },
-      iconVariant: {
-        default: "text-[#9747FF]",
-        success: "text-[#fff]",
+        success: "bg-[#80ddd4]",
+        warning: 'bg-[#FFE48B]',
       },
       size: {
         default: "p-2",
@@ -22,7 +19,6 @@ const backgroundVariants = cva(
     },
     defaultVariants: {
       variant: "default",
-      iconVariant: "default",
       size: 'default'
     }
   }
@@ -33,8 +29,9 @@ const iconVariants = cva(
   {
     variants: {
       variant: {
-        default: "text-[#000]",
-        success: "text-[#fff]",
+        default: "text-[#9747FF]",
+        success: "text-[#22a094]",
+        warning: 'text-[#FDC200]'
       },
       size: {
         default: "w-8 h-8",
