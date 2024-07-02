@@ -25,9 +25,9 @@ const TobBar = () => {
   ];
 
   const rootSidebarRoutes = [
-    { label: 'Dashboard', path: '/' },
     { label: 'Browse', path: '/browse' },
   ];
+  if(isSignedIn) rootSidebarRoutes.unshift({ label: 'Dashboard', path: '/' },);
   return (
     <div className="flex justify-between items-center p-4">
       <Link href="/">
@@ -35,23 +35,25 @@ const TobBar = () => {
       </Link>
       <Searcher />
       <div className="flex gap-6 items-center">
-        <div className="max-sm:hidden flex gap-6">
-          {!pathName.startsWith('/instructor') ? (
-            <Link href={'/instructor/courses'} className="text-sm font-medium ">
-              <Button variant="outline" className="flex justify-start items-center gap-2">
-                <GraduationCap className="w-6 h-6" />
-                Teacher mode
-              </Button>
-            </Link>
-          ) : (
-            <Link href={'/'} className="text-sm font-medium ">
-              <Button variant="outline" className="flex justify-start items-center gap-2">
-                <Glasses className="w-6 h-6" />
-                Student mode
-              </Button>
-            </Link>
-          )}
-        </div>
+        {isSignedIn && (
+          <div className="max-sm:hidden flex gap-6">
+            {!pathName.startsWith('/instructor') ? (
+              <Link href={'/instructor/courses'} className="text-sm font-medium ">
+                <Button variant="outline" className="flex justify-start items-center gap-2">
+                  <GraduationCap className="w-6 h-6" />
+                  Teacher mode
+                </Button>
+              </Link>
+            ) : (
+              <Link href={'/'} className="text-sm font-medium ">
+                <Button variant="outline" className="flex justify-start items-center gap-2">
+                  <Glasses className="w-6 h-6" />
+                  Student mode
+                </Button>
+              </Link>
+            )}
+          </div>
+        )}
         <div className="z-20 sm:hidden">
           <Sheet>
             <SheetTrigger>
@@ -59,9 +61,14 @@ const TobBar = () => {
             </SheetTrigger>
             <SheetContent>
               <p className="font-bold text-sm text-[#9747FF]">MENU</p>
-              <div className="flex flex-col gap-4">
+              {
+                isSignedIn && (
+                  <div className="flex flex-col gap-4">
                 {!pathName.startsWith('/instructor') ? (
-                  <Link href={'/instructor/courses'} className="text-sm font-medium mt-2 flex justify-start items-center gap-2">
+                  <Link
+                    href={'/instructor/courses'}
+                    className="text-sm font-medium mt-2 flex justify-start items-center gap-2"
+                  >
                     <GraduationCap className="w-6 h-6" />
                     Teacher mode
                   </Link>
@@ -72,6 +79,8 @@ const TobBar = () => {
                   </Link>
                 )}
               </div>
+                )
+              }
 
               {pathName.startsWith('/instructor') ? (
                 <div className="flex flex-col gap-4 mt-5">

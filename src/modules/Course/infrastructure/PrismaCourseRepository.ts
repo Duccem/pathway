@@ -115,4 +115,38 @@ export class PrismaCourseRepository implements CourseRepository {
     });
     return level ? Level.fromPrimitives(level) : null;
   }
+
+  async filterCoursesByCategoryAndTerm(categoryId: string, term: string, userId: string): Promise<Course[]> {
+    let whereClause: any = categoryId ? { categoryId } : {};
+    whereClause = userId ? { ...whereClause, instructorId: { not: userId } } : whereClause;
+    whereClause = term
+      ? {
+          ...whereClause,
+          OR: [
+            {
+              title: {
+                contains: term,
+                mode: 'insensitive',
+              },
+            },
+            {
+              subtitle: {
+                contains: term,
+                mode: 'insensitive',
+              },
+            },
+          ],
+        }
+      : whereClause;
+    const courses = await this.model.findMany({
+      where: {
+        isPublished: true,
+        ...whereClause,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+    return courses ? courses.map((course) => Course.fromPrimitives(course)) : [];
+  }
 }

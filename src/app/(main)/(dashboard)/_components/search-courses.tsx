@@ -2,9 +2,9 @@
 import { Input } from "@/lib/ui/input";
 import debounce from "lodash.debounce";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 
-const SearchCourses = () => {
+const SearchCourses = ({ setSearchingState }: { setSearchingState?: (isSearching: boolean) => void; }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [term, setTerm] = useState('');
@@ -12,22 +12,28 @@ const SearchCourses = () => {
   const handleChange = useCallback(debounce((e: any)=> {
     setTerm(e.target.value)
   }, 500), [])
-
+  const [isPending, startTransition] = useTransition();
   useEffect(() => {
-    if(!term || term === '') {
-      return;
-    }
-
-    if(categoryId) {
-      router.push(`/browse/?categoryId=${categoryId}&search=${term}`)
-    } else {
-      router.push(`/browse/?search=${term}`)
-    }
+    setSearchingState(isPending);
+  }, [isPending])
+  useEffect(() => {
+    startTransition(() => {
+      if(!term || term === '') {
+        if(categoryId) router.replace(`/browse/?categoryId=${categoryId}`)
+        else router.replace('/browse')
+      }else {
+        if(categoryId) {
+          router.replace(`/browse/?categoryId=${categoryId}&search=${term}`)
+        } else {
+          router.replace(`/browse/?search=${term}`)
+        }
+      }
+    })
 
   }, [term])
   return (
     <div>
-      <Input placeholder="Search for courses..." onChange={handleChange}/>
+      <Input autoFocus={true} placeholder="Search for courses..." onChange={handleChange}/>
     </div>
   );
 }

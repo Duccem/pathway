@@ -2,25 +2,34 @@
 import { Combobox } from "@/lib/ui/combobox";
 import { Category } from "@prisma/client";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 
 interface CategoriesListProps {
   categories: Category[];
-  selectedCategory: string | null;
+  setSearchingState?: (isSearching: boolean) => void;
 }
-const CategoriesList = ({ categories, selectedCategory }: CategoriesListProps) => {
+const CategoriesList = ({ categories, setSearchingState }: CategoriesListProps) => {
+  const searchParams = useSearchParams();
+  const selectedCategory = searchParams.get('categoryId');
   const [selected, setSelected] = useState(selectedCategory);
   const router = useRouter();
-  const searchParams = useSearchParams();
   const search = searchParams.get('search')
+  const [isPending, startTransition] = useTransition();
   
   const onClick = (categoryId: string | null) => {
-    if(search) {
-      router.push(`/browse/?${categoryId ? `categoryId=${categoryId}&` : ''}search=${search}`)
-    } else {
-      router.push(categoryId ? `/browse/?categoryId=${categoryId}` : "/browse");
-    }
+    startTransition(() => {
+      if(categoryId) {
+        if(search) router.replace(`/browse/?categoryId=${categoryId}&search=${search}`)
+        else router.replace(`/browse/?categoryId=${categoryId}`)
+      } else {
+        if(search) router.replace(`/browse/?search=${search}`)
+        else router.replace(`/browse`)
+      }
+    })
   };
+  useEffect(() => {
+    setSearchingState(isPending);
+  }, [isPending])
   useEffect(() => {
     onClick(selected);
   }, [selected])

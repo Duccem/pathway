@@ -15,18 +15,17 @@ interface CourseCardProps {
   studentId: string;
 }
 const CourseCard = async ({ course, studentId }: CourseCardProps) => {
-  console.log(course.instructorId);
   const instructor = await clerkClient.users.getUser(course.instructorId);
   let level;
   if (course.levelId) {
     level = await getLevel(course.levelId);
   }
-  const purchase = await getPurchase(studentId, course.id);
+  const purchase = studentId ?  await getPurchase(studentId, course.id) : null;
   const sections = await getCourseSections(course.id);
   const publishedSections = sections.filter((section) => section.isPublished);
   const publishedSectionsIds = publishedSections.map((section) => section.id);
-  const { count: completedSections } =
-    await getCourseSectionProgressCompletedCount(studentId, publishedSectionsIds);
+  const { count: completedSections } = studentId ?
+    await getCourseSectionProgressCompletedCount(studentId, publishedSectionsIds) : { count: 0 };
   const progressPercentage = Math.round((completedSections / publishedSections.length) * 100);
   return (
     <Link href={`/courses/${course.id}/overview`} className="border rounded-lg cursor-pointe">

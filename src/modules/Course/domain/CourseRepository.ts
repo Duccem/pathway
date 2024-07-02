@@ -6,6 +6,7 @@ export interface CourseRepository {
   listMyCoursesCreated(userId: string): Promise<Course[]>;
   getCourseById(courseId: string, userId: string): Promise<Course>;
   getCoursesByCategory(categoryId: string | null, userId: string): Promise<Course[]>;
+  filterCoursesByCategoryAndTerm(categoryId: string, term: string, userId: string): Promise<Course[]>;
   searchCourses(query: string, userId: string): Promise<Course[]>;
   saveCourse(course: Course): Promise<void>;
   getCourseCategories(): Promise<Category[]>;
