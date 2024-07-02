@@ -16,7 +16,10 @@ const Sidebar = () => {
           <Link href={route.path} key={route.path}
             className={`flex items-center gap-4 p-3 rounded-lg hover:bg-[#dfcbfa] ${pathName.startsWith(route.path) ? 'text-[#9747FF]' : ''}`}
           >
-            {route.icon} {route.label}
+            <div className={`${pathName.startsWith(route.path) ? 'animate-move-once' : ''}`}>
+              {route.icon}
+            </div> 
+            {route.label}
           </Link>
         ))
       }

@@ -53,7 +53,7 @@ const CourseCategoryForm = ({ courseId, initialData, categories }: CourseCategor
   const selectedCategory = categories.find(category => category.value === initialData.categoryId);
   const selectedSubCategory = selectedCategory?.subcategories.find(subcategory => subcategory.value === initialData.subCategoryId);
   return (
-    <div className="mt-6 border bg-ducen-secondary rounded-md p-4">
+    <div className="mt-6 border rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
         Course Category & Subcategory
         <Button variant="ghost" onClick={toggleEdit}>

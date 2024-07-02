@@ -46,7 +46,7 @@ const CourseLevelForm = ({ courseId, initialData, levels }: CourseLevelFormProps
   };
   const selectedLevel = levels.find((level) => level.value === initialData.levelId);
   return (
-    <div className="mt-6 border bg-ducen-secondary rounded-md p-4">
+    <div className="mt-6 border rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
         Course Level
         <Button variant="ghost" onClick={toggleEdit}>

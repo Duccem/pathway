@@ -41,7 +41,7 @@ const CourseSectionTitleForm = ({ courseId, initialData, sectionId }: CourseSect
     }
   };
   return (
-    <div className="mt-6 border bg-ducen-secondary rounded-md p-4">
+    <div className="mt-6 border rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
         Chapter Title
         <Button variant="ghost" onClick={toggleEdit}>

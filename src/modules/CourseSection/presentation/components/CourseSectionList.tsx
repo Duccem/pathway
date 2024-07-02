@@ -50,7 +50,7 @@ const CourseSectionList = ({ items, onReorder, onEdit }: CourseSectionListProps)
               sections.map((section, index) => (
                 <Draggable key={section.id} draggableId={section.id} index={index}>
                   {(provided) => (
-                    <div className="flex items-center bg-[#9747FF] rounded-lg text-sm font-medium p-3" {...provided.draggableProps} ref={provided.innerRef}>
+                    <div className="flex items-center bg-ducen-secondary rounded-lg text-sm font-medium p-3" {...provided.draggableProps} ref={provided.innerRef}>
                       <div {...provided.dragHandleProps}>
                         <Grip className="h-4 w-4 cursor-pointer mr-4 "/>
                       </div>

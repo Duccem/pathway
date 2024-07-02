@@ -8,12 +8,12 @@ const DashSidebar = () => {
   return (
     <div className="max-sm:hidden flex flex-col w-64  py-3 my-4 gap-0 text-sm font-medium">
       <Link href='/' 
-      className={`flex justify-start items-center gap-3 hover:bg-[#dfcbfa] hover:border-r-4 hover:border-[var(--ducen-primary)] py-3 px-5 ${pathName === '/' ? 'bg-[#dfcbfa] border-r-4 border-[var(--ducen-primary)]' : ''}`}>
-        <LayoutDashboard/>
+      className={`transition-background flex justify-start items-center gap-3 hover:bg-[#dfcbfa] hover:border-r-4 hover:border-[var(--ducen-primary)] py-3 px-5 ${pathName === '/' ? 'bg-[#dfcbfa] border-r-4 border-[var(--ducen-primary)]' : ''}`}>
+        <LayoutDashboard className={`${pathName === '/' ? 'animate-spin-once' : ''}`}/>
         Dashboard
       </Link>
       <Link href='/browse' className={`flex justify-start items-center gap-3 hover:bg-[#dfcbfa] hover:border-r-4 hover:border-[var(--ducen-primary)] py-3 px-5 ${pathName === '/browse' ? 'bg-[#dfcbfa] border-r-4 border-[var(--ducen-primary)]' : ''}`}>
-        <Compass/>
+        <Compass className={`${pathName === '/browse' ? 'animate-spin-once' : ''}`}/>
         Browse
       </Link>
     </div>

@@ -41,7 +41,7 @@ const CourseDescriptionForm = ({ courseId, initialData }: CourseDescriptionFormP
     }
   };
   return (
-    <div className="mt-6 border bg-ducen-secondary rounded-md p-4">
+    <div className="mt-6 border rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
         Course Description
         <Button variant="ghost" onClick={toggleEdit}>

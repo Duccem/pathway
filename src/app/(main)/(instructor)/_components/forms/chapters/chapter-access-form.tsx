@@ -42,7 +42,7 @@ const CourseSectionAccessForm = ({ courseId, initialData, sectionId }: CourseSec
     }
   };
   return (
-    <div className="mt-6 border bg-ducen-secondary rounded-md p-4">
+    <div className="mt-6 border rounded-md p-4">
       <div className="font-bold flex items-center justify-between">
         Chapter Accessability
         <Button variant="ghost" onClick={toggleEdit}>
