@@ -90,7 +90,7 @@ const CourseSectionResourcesForm = ({
         </div>
       )}
       <div className="font-bold flex items-center justify-between">
-        Course Chapters
+        Course Resource
         <Button variant="ghost" onClick={toggleCreating}>
           {isCreating ? (
             <>
