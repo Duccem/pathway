@@ -30,7 +30,7 @@ const CourseOverviewPage = async ({ params: { courseId } }: { params: CourseOver
     return redirect('/');
   }
   const otherCourses = await getCourses(course.instructorId);
-  const purchase = await getPurchase(userId, courseId);
+  const purchase = userId ?  await getPurchase(userId, courseId) : null;
   const sections = await getCourseSections(courseId);
   const instructor = await clerkClient.users.getUser(course.instructorId);
   const level = await getLevel(course.levelId || '');

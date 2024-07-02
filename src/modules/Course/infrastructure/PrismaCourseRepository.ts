@@ -24,7 +24,7 @@ export class PrismaCourseRepository implements CourseRepository {
   }
   async getCourseById(courseId: string, userId: string): Promise<Course> {
     const course = await this.model.findUnique({
-      where: { id: courseId, instructorId: userId },
+      where: { id: courseId },
     });
     return course ? Course.fromPrimitives(course) : null;
   }

@@ -4,7 +4,6 @@ import CourseSectionDetail from "@/modules/CourseSection/presentation/components
 import { getCourseSection } from "@/modules/CourseSection/presentation/page-actions/get-course-section";
 import { getCourseSections } from "@/modules/CourseSection/presentation/page-actions/get-course-sections";
 import { getSectionResources } from "@/modules/CourseSection/presentation/page-actions/get-section-resources";
-import { getSectionVideoData } from "@/modules/CourseSection/presentation/page-actions/get-section-viode-data";
 import { getUserProgress } from "@/modules/CourseSectionProgress/presentation/get-user-progress";
 import { auth } from "@clerk/nextjs/server";
 import { CourseSectionResource } from "@prisma/client";
@@ -34,9 +33,6 @@ const CourseSectionDetailPage = async ({ params }: { params: CourseSectionDetail
   const purchase = await getPurchase(userId, courseId);
   if(purchase) {
     resources = await getSectionResources(sectionId);
-  }
-  if (section.isFree || purchase) {
-    muxData = await getSectionVideoData(sectionId);
   }
   const progress = await getUserProgress(userId, sectionId);
   return (
