@@ -53,12 +53,12 @@ const config = {
           foreground: 'hsl(var(--card-foreground))',
         },
         ['ducen-primary']: {
-          DEFAULT: 'hsl(var(--ducen-primary))',
-          foreground: 'hsl(var(--ducen-primary-foreground))',
+          DEFAULT: 'var(--ducen-primary)',
+          foreground: 'var(--ducen-primary-foreground))',
         },
         ['ducen-secondary']: {
-          DEFAULT: 'var(--ducen-secondary)',
-          foreground: 'var(--ducen-secondary-foreground)',
+          DEFAULT: '--ducen-secondary)',
+          foreground: '--ducen-secondary-foreground',
         },
       },
       borderRadius: {

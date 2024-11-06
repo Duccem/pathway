@@ -66,7 +66,7 @@ const CourseTitleForm = ({ courseId, initialData }: CourseTitleFormProps) => {
               control={form.control}
               name="title"
               render={({ field }) => (
-                <FormItem>
+                <FormItem>s
                   <FormControl>
                     <Input disabled={isSubmitting} placeholder="e.g Advanced Web Development" {...field} />
                   </FormControl>

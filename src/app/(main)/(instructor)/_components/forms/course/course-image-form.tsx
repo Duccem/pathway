@@ -100,7 +100,6 @@ const CourseImageForm = ({ courseId, initialData }: CourseImageFormProps) => {
                       <ImageCoursePicker
                         value={field.value || ''}
                         onChange={(url) => {
-                          console.log('CHANGING');
                           field.onChange(url)
                         }}
                         onSelectFile={(file: File) => setCourseImageFile(file)}

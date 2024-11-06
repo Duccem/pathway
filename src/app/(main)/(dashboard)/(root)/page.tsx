@@ -4,6 +4,7 @@ import { auth } from '@clerk/nextjs/server';
 import { CheckCircle, Clock, StopCircle } from 'lucide-react';
 import { redirect } from 'next/navigation';
 import InfoCard from '../_components/info-card';
+import { SignedIn } from '@clerk/nextjs'
 
 export default async function Dashboard() {
   const { userId } = auth();
